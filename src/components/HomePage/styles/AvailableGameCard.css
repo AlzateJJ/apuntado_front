@@ -1,5 +1,10 @@
 
 .game {
+    background-color: rgb(78, 73, 73);
+    border-radius: 1em;
+    padding: 1em 2em;
+    align-items: center;
+    justify-content: center;
     display: flex;
     flex-direction: row;
     gap: 1em;

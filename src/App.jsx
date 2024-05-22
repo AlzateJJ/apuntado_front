@@ -5,14 +5,14 @@ import { Routes, Route } from 'react-router-dom'
 import { useDispatch} from 'react-redux'
 import { getGamesThunk } from './store/states/games.slice'
 import { useEffect } from 'react'
+import WaitingRoomPage from './pages/WaitingRoomPage'
 
 function App() {
 
     const dispatch = useDispatch()
 
     useEffect(() => {
-        const url = 'http://localhost:8080/games'
-        dispatch(getGamesThunk(url))
+        dispatch(getGamesThunk())
     }, [])
     
 
@@ -21,6 +21,7 @@ function App() {
             <Routes>
                 <Route path = '/' element = { <LoginPage /> } />
                 <Route path='/home' element = { <HomePage /> }/>
+                <Route path='/waitingroom' element = { <WaitingRoomPage /> } />
             </Routes>
             
         </>

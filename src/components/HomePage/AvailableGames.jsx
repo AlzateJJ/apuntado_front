@@ -1,4 +1,4 @@
-import React from 'react'
+import './styles/AvailableGames.css'
 import AvailableGameCard from './AvailableGameCard'
 import { useSelector } from 'react-redux'
 
@@ -8,7 +8,7 @@ const AvailableGames = () => {
 
     console.log(games)
     return (
-        <>
+        <div className='availableGames'>
             <h2>Juegos a los que te puedes unir</h2>
             <div className="games_wrapper">
                 {
@@ -20,7 +20,7 @@ const AvailableGames = () => {
                     ))
                 }
             </div>
-        </>
+        </div>
   )
 }
 

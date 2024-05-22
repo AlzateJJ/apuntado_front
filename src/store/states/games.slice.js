@@ -13,7 +13,8 @@ export const { setGames } = gamesslice.actions;
 
 export default gamesslice.reducer;
 
-export const getGamesThunk = (url) => (dispatch) => {
+export const getGamesThunk = () => (dispatch) => {
+    const url = 'http://localhost:8080/games'
     axios.get(url)
         .then(res => {
             console.log(res.data)

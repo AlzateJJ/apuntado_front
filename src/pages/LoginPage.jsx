@@ -1,16 +1,19 @@
-import React from 'react'
+import './styles/LoginPage.css'
 import { Form, useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { loginUserThunk } from '../store/states/users.slice'
 
 const LoginPage = () => {
 
     const { handleSubmit, register, reset } = useForm()
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const submit = data => {
         console.log(data)
-
+        dispatch(loginUserThunk(data))
         // buscar el usuaro y cambiarle los
         // atibutos a usuario activo
         reset({
@@ -21,7 +24,7 @@ const LoginPage = () => {
     }
 
     return (
-        <div>
+        <div className='login_page'>
             <h1>Apuntado</h1>
             <h1>Ingresa tu email y contraseña!</h1>
 
