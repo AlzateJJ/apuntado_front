@@ -6,6 +6,7 @@ import { useDispatch} from 'react-redux'
 import { getGamesThunk } from './store/states/games.slice'
 import { useEffect } from 'react'
 import WaitingRoomPage from './pages/WaitingRoomPage'
+import ProtectedRoutes from './components/ProtectedRoutes'
 
 function App() {
 
@@ -14,14 +15,15 @@ function App() {
     useEffect(() => {
         dispatch(getGamesThunk())
     }, [])
-    
 
     return (
         <>
             <Routes>
                 <Route path = '/' element = { <LoginPage /> } />
-                <Route path='/home' element = { <HomePage /> }/>
-                <Route path='/waitingroom' element = { <WaitingRoomPage /> } />
+                <Route element = { <ProtectedRoutes />} >
+                    <Route path='/home' element = { <HomePage /> } />
+                    <Route path='/waitingroom:idgame' element = { <WaitingRoomPage /> } />
+                </Route>
             </Routes>
             
         </>

@@ -17,7 +17,7 @@ export const getGamesThunk = () => (dispatch) => {
     const url = 'http://localhost:8080/games'
     axios.get(url)
         .then(res => {
-            console.log(res.data)
+            // console.log(res.data)
             dispatch(setGames(res.data))
         })
         .catch(err => console.log(err))

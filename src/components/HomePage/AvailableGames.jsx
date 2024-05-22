@@ -6,7 +6,7 @@ const AvailableGames = () => {
 
     const games = useSelector(store => store.games)
 
-    console.log(games)
+    // console.log(games)
     return (
         <div className='availableGames'>
             <h2>Juegos a los que te puedes unir</h2>

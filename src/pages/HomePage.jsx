@@ -2,10 +2,15 @@ import './styles/HomePage.css'
 import AvailableGames from '../components/HomePage/AvailableGames'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
+import { getLoggedUserThunk } from '../store/states/users.slice'
 
 const HomePage = () => {
 
     const dispatch = useDispatch
+
+    useEffect(() => {
+        getLoggedUserThunk()
+    }, [])
 
     const user = useSelector(store => store.user);
     
