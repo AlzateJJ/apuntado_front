@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import getConfigToken from "../../services/getConfigToken"
 
 export const usersslice = createSlice({
     name: 'user',
@@ -33,7 +34,7 @@ export const loginUserThunk = (user) => (dispatch) => {
 
 export const updateUserThunk = (user) => (dispatch) => {
     const url = 'http://localhost:8080'
-    axios.put(`${url}/users`, user)
+    axios.put(`${url}/users`, user, getConfigToken())
     .then(res => {
         console.log(res.data)
         dispatch(updateUser(res.data))
@@ -44,7 +45,8 @@ export const updateUserThunk = (user) => (dispatch) => {
 export const getLoggedUserThunk = () => (dispatch) => {
     console.log('entré a getLoggedUserThunk')
     const url = 'http://localhost:8080'
-    axios.get(`${url}/users/me`)
+    // axios.get(`${url}/users/me`)
+    axios.get(`${url}/users/me`, getConfigToken())
     .then(res => {
         console.log(res.data)
         dispatch(setUser(res.data));

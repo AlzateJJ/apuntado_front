@@ -3,12 +3,12 @@ import { Navigate, Outlet } from 'react-router-dom';
 
 const ProtectedRoutes = () => {
 
-    const getToken = () => localStorage.getItem("token");
+    // const getToken = () => localStorage.getItem("token");
     // const token = localStorage.getItem("token");
     
     // console.log(token)
-    if (getToken()) { // PENDIENTE: Arreglar login
-        console.log('entré a home')
+    if (localStorage.getItem('token')) { // PENDIENTE: Arreglar login
+        console.log('entré al outlet')
         return <Outlet />
     } else {
         console.log('me rechazaron del home')

@@ -6,15 +6,17 @@ import { getLoggedUserThunk } from '../store/states/users.slice'
 
 const HomePage = () => {
 
-    const dispatch = useDispatch
-
-    useEffect(() => {
-        getLoggedUserThunk()
-    }, [])
-
+    console.log('entré a home')
+    const dispatch = useDispatch()
+    
     const user = useSelector(store => store.user);
     
+    useEffect(() => {
+        dispatch(getLoggedUserThunk())
+    }, [])
+
     console.log(user)
+
     return (
         <div className='home_wrapper'>
             <h1>Home Header</h1>
