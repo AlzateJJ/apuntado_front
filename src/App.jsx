@@ -10,12 +10,7 @@ import ProtectedRoutes from './components/ProtectedRoutes'
 
 function App() {
     console.log('entré a App')
-    const dispatch = useDispatch()
 
-    useEffect(() => {
-        dispatch(getGamesThunk())
-    }, [])
-    
     return (
         <>
             <Routes>

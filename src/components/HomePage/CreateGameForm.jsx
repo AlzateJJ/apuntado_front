@@ -7,6 +7,8 @@ import { updateUserThunk } from '../../store/states/users.slice'
 
 const CreateGameForm = ( { formIsOpened, setFormIsOpened } ) => {
 
+    console.log('entré a CreateGameForm')
+
     const { handleSubmit, register, reset } = useForm()
 
     const dispatch = useDispatch()
@@ -15,11 +17,11 @@ const CreateGameForm = ( { formIsOpened, setFormIsOpened } ) => {
     console.log(user)
     
     const submit = data => {
-        console.log(data)
+        // console.log({ ...data, adminUserID: user.id, started: false, num_rounds: 0, users: [user] })
         // crear el juego
-        dispatch(createGameThunk({ ...data, adminUserID: user.id, started: false, num_rounds: 0 })) //, users: [user]
+        dispatch(createGameThunk(data)) //, users: [user]
         // hacer update del user admin del juego
-        dispatch(updateUserThunk({ ...user, isPlaying: true, points: 0 })) // , gameId: game.id
+        dispatch(updateUserThunk({ ...user, isPlaying: true, points: 0 })) // , gameId: game.id // , gameId: games[games?.length-1].id
 
         // resetear y cerrar form
         reset({

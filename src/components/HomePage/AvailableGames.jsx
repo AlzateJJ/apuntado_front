@@ -1,15 +1,22 @@
 import './styles/AvailableGames.css'
 import AvailableGameCard from './AvailableGameCard'
-import { useSelector } from 'react-redux'
-import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
 import CreateGameForm from './CreateGameForm'
+import { getGamesThunk } from '../../store/states/games.slice'
 
 const AvailableGames = () => {
     console.log('entré a AbailableGames')
 
+    const [formIsOpened, setFormIsOpened] = useState(false)
+
+    const dispatch = useDispatch()
+
     const games = useSelector(store => store.games)
 
-    const [formIsOpened, setFormIsOpened] = useState(false)
+    useEffect(() => {
+        dispatch(getGamesThunk())
+    }, [])
 
     // console.log(games)
 

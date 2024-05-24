@@ -13,11 +13,11 @@ const AvailableGameCard = ( { game } ) => {
   const user = useSelector(store => store.user);
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log(user)
+    // e.preventDefault()
+    // console.log(user)
     // se hace update al user, a usuario jugador
     dispatch(updateUserThunk({ ...user, isPlaying: true, points: 0, gameId: game.id }))
-    console.log(user)
+    // console.log(user)
     // se hace update al game
 
     // se hace navigate a la sala de espera, que el id de la ruta sea el id del game?
@@ -26,14 +26,15 @@ const AvailableGameCard = ( { game } ) => {
     
     // navigate('/waitingroom')
   }
-  console.log(game)
+  // console.log(game)
   return (
     <article className="game">
-      <h1 className="game__name">{game?.name}</h1>
-      <h2 className="game__users">{`en sala: ${game?.users.length}`}</h2>
-      <h2 className="game__max-players">{`max: ${game?.max_players}`}</h2>
+      <h1 className="game__name">{game?.name || 'Juego sin nombre'}</h1>
+      <h2 className="game__users">{`en sala: ${game?.users?.length || 0}`}</h2>
+      <h2 className="game__max-players">{`max: ${game?.max_players || 0}`}</h2>
       <button onClick={handleSubmit} className="accessGame_btn">Unirme</button>
-    </article>
+  </article>
+
   )
 }
 

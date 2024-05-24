@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import getConfigToken from '../../services/getConfigToken';
 
 export const gamesslice = createSlice({
     name: 'games',
@@ -24,6 +25,20 @@ export const getGamesThunk = () => (dispatch) => {
         .catch(err => console.log(err))
 }
 
+export const createGameThunk = (newGame, adminUser) => async (dispatch) => {
+    const url = 'http://localhost:8080'
+    try {
+        const gameRes = await axios.post(`${url}/games`, newGame, getConfigToken());
+        // const usersRes = await axios.post(`${url}/games/${gameRes.data.id}/users`, adminUser)
+        // dispatch(addGame({ ...gameRes.data, users: usersRes.data }));
+        dispatch(addGame(gameRes.data));
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+
+
 // export const createGameThunk = (newGame) => (dispatch) => {
 //     const url = 'http://localhost:8080'
 //     axios.post(`${url}/games`, newGame)
@@ -33,14 +48,3 @@ export const getGamesThunk = () => (dispatch) => {
 //         })
 //         .catch(err => console.log(err))
 // }
-
-export const createGameThunk = (newGame) => async (dispatch) => {
-    const url = 'http://localhost:8080';
-
-    try {
-        const res = await axios.post(`${url}/games`, newGame);
-        dispatch(addGame(res.data));
-    } catch (err) {
-        console.log(err);
-    }
-};
