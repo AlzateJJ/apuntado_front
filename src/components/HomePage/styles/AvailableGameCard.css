@@ -1,5 +1,5 @@
 
-.game {
+/* .game {
     background-color: rgb(78, 73, 73);
     border-radius: 1em;
     padding: 1em 2em;
@@ -19,4 +19,61 @@
         height: 60%;
         padding: 1em 1.5em;
     }
+} */
+
+/* Estilos para el artículo del juego */
+.game {
+    border: 1px solid #443f3f;
+    padding: 0.5em 1em;
+    border-radius: 0.5em;
+    background-color: #5e5e565e; /* Blanco hueso */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    gap: 1em;
+    align-items: center;
+    justify-content: center;
+    transition: box-shadow 0.3s ease, border 0.1s ease;
+
+    &:hover {
+        border: 3px solid #ffffff;
+        box-shadow: 0 4px 8px rgb(228, 23, 255);
+    }
+    
+    /* Estilos para el nombre del juego */
+    .game__name {
+        font-size: 1.5em;
+        color: #ffffffef;
+    }
+    
+    /* Estilos para el número de usuarios en la sala */
+    .game__users {
+        font-size: 1.2em;
+        color: #ffffff83;
+    }
+    
+    /* Estilos para el máximo de jugadores */
+    .game__max-players {
+        font-size: 1.2em;
+        color: #ffffff83;
+    }
+    
+    /* Estilos para el botón */
+    .accessGame_btn {
+        padding: 0.6em 1em;
+        border-radius: 0.4em;
+        border: none;
+        background-color: orange;
+        color: #fff;
+        font-size: 1em;
+        cursor: pointer;
+        transition: transform 0.3s ease, background-color 0.3s ease;
+        
+        &:hover {
+            transform: scale(1.05);
+            background-color: #e07b00; /* Slightly darker orange */
+        }
+    }
+    
 }
+
+

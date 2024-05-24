@@ -1,0 +1,119 @@
+.close_form {
+    transform: scale(0);
+}
+
+/* General form styling */
+.create_game-form_container {
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+
+    backdrop-filter: blur(8px);
+    background-color: #0003;
+    display: grid;
+    place-content: center;
+    transition: transform 150ms ease;
+    position: fixed;
+}
+
+.form {
+    background-color: #e9d4d42a;
+    padding: 1.5em;
+    border-radius: 0.6em;
+    position: relative;
+
+    /* Form header */
+    .form__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1em;
+        margin-top: 0;
+
+        .form__title {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #000000;
+            text-align: center;
+        }
+        .form__close-btn {
+            color: rgb(202, 5, 5);
+            position: absolute;
+            font-size: 1.3rem;
+            font-weight: 600;
+            top: 0.5em;
+            right: 0.5em;
+            cursor: pointer;
+            font-family: Arial, Helvetica, sans-serif;
+            width: 1.2em;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            border: 1px solid rgb(202, 5, 5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.2s ease;
+            
+            &:hover {
+                color: #070707;
+                background-color: rgb(216, 5, 5);
+                transform: scale(1.1);
+            }
+        }
+    }
+    
+    /* Form labels and fields */
+    .form__label {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1em;
+
+        .form__field {
+            font-size: 1em;
+            margin-bottom: 0.5em;
+            color: #080808;
+        }
+        
+        .form__field-value {
+            padding: 0.4em 0.8em;
+            border: 1px solid #ddd;
+            border-radius: 0.3em;
+            background-color: #fff;
+            color: #333;
+            font-size: 1em;
+            outline: none;
+            transition: border-color 0.3s ease;
+
+            &:focus {
+                border-color: #aaa;
+            }
+        }
+        
+    }
+    /* Button styling */
+    .create_game-btn {
+        padding: 0.8em 1.5em;
+        border-radius: 0.3em;
+        border: none;
+        background-color: #ff8c00; /* Orange color */
+        color: #fff;
+        font-size: 1em;
+        cursor: pointer;
+        transition: transform 0.3s ease, background-color 0.3s ease;
+        &:hover {
+            transform: scale(1.05);
+            background-color: #e07b00; /* Slightly darker orange */
+        }
+    }
+    
+    
+    /* Form closing transition */
+    .close_form {
+        opacity: 0;
+        transform: scale(0.95);
+        pointer-events: none;
+    }
+    
+    
+}

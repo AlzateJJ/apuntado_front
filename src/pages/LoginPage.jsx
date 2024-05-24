@@ -1,16 +1,16 @@
 import './styles/LoginPage.css'
 import { Form, useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { loginUserThunk } from '../store/states/users.slice'
 
 const LoginPage = () => {
+    console.log('entré a LoginPage')
 
     const { handleSubmit, register, reset } = useForm()
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
-
     
     localStorage.removeItem("token"); // PENDIENTE: hacer funcionalidad para hacer logout, quitar esto
     const submit = data => {

@@ -9,13 +9,13 @@ import WaitingRoomPage from './pages/WaitingRoomPage'
 import ProtectedRoutes from './components/ProtectedRoutes'
 
 function App() {
-
+    console.log('entré a App')
     const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(getGamesThunk())
     }, [])
-
+    
     return (
         <>
             <Routes>

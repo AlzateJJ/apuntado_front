@@ -3,6 +3,35 @@
     color: white;
     padding: 2em;
 
+    .title_btn-wrapper {
+        display: flex;
+        gap: 0.6em;
+        align-items: center;
+        justify-content: space-around;
+        margin-bottom: 1em;
+
+        .games_title {
+            color: rgb(68, 128, 0);
+            text-align: center;
+        }
+
+        .create_game-btn {
+            font-weight: 700;
+            padding: 0.6em 1em;
+            border-radius: 0.4em;
+            border: none;
+            background-color: orange;
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.897); /* Sombra negra sutil */
+        
+            &:hover {
+                transform: scale(1.1);
+                box-shadow: 4px 4px 10px rgb(0, 0, 0); /* Sombra un poco más pronunciada al hacer hover */
+                background-color: rgb(212, 71, 5);
+            }
+        }
+    }
+
     .games_wrapper {
         display: flex;
         flex-direction: column;
