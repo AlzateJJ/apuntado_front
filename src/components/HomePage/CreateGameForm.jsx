@@ -21,7 +21,7 @@ const CreateGameForm = ( { formIsOpened, setFormIsOpened } ) => {
         // crear el juego
         dispatch(createGameThunk(data)) //, users: [user]
         // hacer update del user admin del juego
-        dispatch(updateUserThunk({ ...user, isPlaying: true, points: 0 })) // , gameId: game.id // , gameId: games[games?.length-1].id
+        dispatch(updateUserThunk({ ...user, isPlaying: true })) // , gameId: game.id // , gameId: games[games?.length-1].id
 
         // resetear y cerrar form
         reset({

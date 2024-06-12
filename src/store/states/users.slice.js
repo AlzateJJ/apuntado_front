@@ -19,9 +19,9 @@ export const { setUser } = usersslice.actions;
 export default usersslice.reducer;
 
 
-export const loginUserThunk = (user) => (dispatch) => {
+export const loginUserThunk = (user) => async (dispatch) => {
     const url = 'http://localhost:8080'
-    axios.post(`${url}/users/login`, user)
+    await axios.post(`${url}/users/login`, user)
     .then(res => {
         console.log(res.data)
         localStorage.setItem("token", res.data.accessToken);

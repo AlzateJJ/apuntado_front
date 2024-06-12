@@ -25,7 +25,7 @@ export const getGamesThunk = () => (dispatch) => {
         .catch(err => console.log(err))
 }
 
-export const createGameThunk = (newGame, adminUser) => async (dispatch) => {
+export const createGameThunk = (newGame) => async (dispatch) => {
     const url = 'http://localhost:8080'
     try {
         const gameRes = await axios.post(`${url}/games`, newGame, getConfigToken());
