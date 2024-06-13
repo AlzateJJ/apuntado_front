@@ -1,3 +1,34 @@
 .home_wrapper {
-    color: rgb(172, 66, 204);
+
+    .home_title {
+        color: rgb(172, 66, 204);
+        text-align: center;
+    }
+
+    .user_logout-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1.5em;
+
+        .home_user {
+            color: rgba(231, 221, 221, 0.445);
+            transition: transform 0.2s ease;
+        }
+
+        .logout_btn {
+            background-color: rgb(51, 2, 97);
+            color: white;
+            padding: 1em 2em;
+            border-radius: 0.3em;
+            transition: transform 0.2s ease;
+            border: none;
+
+            &:hover {
+                transform: scale(1.05);
+                border: 1.5px solid rgb(40, 11, 68);
+            }
+        }
+    }
+
 }

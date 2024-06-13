@@ -3,6 +3,8 @@ import { Form, useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { loginUserThunk } from '../store/states/users.slice'
+import { genericRequestThunk } from '../store/states/app.slice'
+import axios from 'axios'
 
 const LoginPage = () => {
     console.log('entré a LoginPage')
@@ -15,14 +17,19 @@ const LoginPage = () => {
     // localStorage.removeItem("token"); // PENDIENTE: hacer funcionalidad para hacer logout, quitar esto
     const submit = data => {
         console.log(data)
-        dispatch(loginUserThunk(data))
+        // dispatch(loginUserThunk(data))
         // buscar el usuaro y cambiarle los
         // atibutos a usuario activo
+
+        dispatch(genericRequestThunk(async () => {
+            const res = await axios.post("http://localhost:8080/users/login", data)
+            localStorage.setItem("token", res.data.accessToken)
+            navigate('./home')
+        }, "", "Credenciales inválidas"))
         reset({
             email: '',
             password: ''
         })
-        navigate('./home')
     }
 
     return (

@@ -7,10 +7,10 @@ export const usersslice = createSlice({
     initialState: null,
     reducers: {
         setUser: (_, {payload}) => payload,
-        // updateUser: (state, { payload: user }) => {
-        //     const index = state.findIndex(u => u.id === user.id);
-        //     state[index] = user;
-        // },
+        updateUser: (state, { payload: user }) => {
+            const index = state.findIndex(u => u.id === user.id);
+            state[index] = user;
+        },
     }
 })
 
@@ -32,11 +32,11 @@ export const loginUserThunk = (user) => async (dispatch) => {
     })
 }
 
-export const updateUserThunk = (user) => (dispatch) => {
+export const updateUserThunk = (data, id) => async (dispatch) => {
     console.log('entré a updateUserThunk')
-    console.log(user)
+    console.log(data)
     const url = 'http://localhost:8080'
-    axios.put(`${url}/users/${user.id}`, user, getConfigToken())
+    await axios.put(`${url}/users/${id}`, data, getConfigToken())
     .then(res => {
         console.log(res.data)
         dispatch(setUser(res.data));

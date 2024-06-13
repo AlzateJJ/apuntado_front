@@ -7,16 +7,7 @@ const ProtectedRoutes = () => {
 
     // const getToken = () => localStorage.getItem("token");
     // const token = localStorage.getItem("token");
-
-    const user = useSelector(store => store.user);
     
-    const dispatch = useDispatch()
-    useEffect(() => {
-        dispatch(getLoggedUserThunk())
-    }, [])
-    
-    console.log(user)
-
     if (localStorage.getItem('token')) { // PENDIENTE: Arreglar login
         console.log('entré al outlet')
         return <Outlet />

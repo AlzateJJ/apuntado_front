@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 const AvailableGameCard = ( { game } ) => {
   console.log('entré a AbailableGameCard')
-
+  console.log(game)
   const navigate = useNavigate()
   const dispatch = useDispatch()
   
@@ -16,7 +16,7 @@ const AvailableGameCard = ( { game } ) => {
     // e.preventDefault()
     // console.log(user)
     // se hace update al user, a usuario jugador
-    dispatch(updateUserThunk({ ...user, isPlaying: true, points: 0, gameId: game.id }))
+    dispatch(updateUserThunk({ isPlaying: true, points: 0, gameId: game.id }, user.id))
     // console.log(user)
     // se hace update al game
 
@@ -26,12 +26,12 @@ const AvailableGameCard = ( { game } ) => {
     
     // navigate('/waitingroom')
   }
-  // console.log(game)
-  return (
+  
+  return ( // PENDIENTE: no sé por qué no aparecen los users del game de inmediato, toca esperar a que se recargue el componente
     <article className="game">
-      <h1 className="game__name">{game?.name || 'Juego sin nombre'}</h1>
-      <h2 className="game__users">{`en sala: ${game?.users?.length || 0}`}</h2>
-      <h2 className="game__max-players">{`max: ${game?.max_players || 0}`}</h2>
+      <h1 className="game__name">{game?.name}</h1>
+      <h2 className="game__users">{`en sala: ${game.users?.length || 0}`}</h2>
+      <h2 className="game__max-players">{`max: ${game?.max_players}`}</h2>
       <button onClick={handleSubmit} className="accessGame_btn">Unirme</button>
   </article>
 
