@@ -25,6 +25,14 @@ export const getGamesThunk = () => (dispatch) => {
         .catch(err => console.log(err))
 }
 
+export const getOneGameThunk = (gameId) => (dispatch) => {
+    const url = 'http://localhost:8080'
+    axios.get(`${url}/games/${gameId}`)
+        .then(res => {
+            dispatch()
+        })
+}
+
 export const createGameThunk = (newGame) => async (dispatch) => {
     const url = 'http://localhost:8080'
     try {

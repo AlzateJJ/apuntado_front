@@ -14,7 +14,6 @@ const LoginPage = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     
-    // localStorage.removeItem("token"); // PENDIENTE: hacer funcionalidad para hacer logout, quitar esto
     const submit = data => {
         console.log(data)
         // dispatch(loginUserThunk(data))

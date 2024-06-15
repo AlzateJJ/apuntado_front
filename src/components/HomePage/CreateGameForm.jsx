@@ -1,27 +1,27 @@
 import { useForm } from 'react-hook-form'
 import './styles/CreateGameForm.css'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { createGameThunk } from '../../store/states/games.slice'
-import { updateUserThunk } from '../../store/states/users.slice'
+import { getLoggedUserThunk, updateUserThunk } from '../../store/states/users.slice'
+import { useNavigate } from 'react-router-dom'
 
 const CreateGameForm = ( { formIsOpened, setFormIsOpened } ) => {
-
     console.log('entré a CreateGameForm')
 
     const { handleSubmit, register, reset } = useForm()
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const user = useSelector(store => store.user);
     console.log(user)
-    
+
     const submit = data => {
-        // console.log({ ...data, adminUserID: user.id, started: false, num_rounds: 0, users: [user] })
         // crear el juego
-        dispatch(createGameThunk(data)) //, users: [user]
+        dispatch(createGameThunk(data))
         // hacer update del user admin del juego
-        dispatch(updateUserThunk({ isPlaying: true }, user.id)) // , gameId: game.id // , gameId: games[games?.length-1].id
+        // dispatch(updateUserThunk({ isPlaying: true }, user.id)) // , gameId: game.id // , gameId: games[games?.length-1].id
 
         // resetear y cerrar form
         reset({
@@ -29,6 +29,9 @@ const CreateGameForm = ( { formIsOpened, setFormIsOpened } ) => {
             max_players: ''
         })
         setFormIsOpened(false)
+        
+        // dispatch(getLoggedUserThunk()) // PENDIENTE: actualizar el usuario local, y después hacer el navigate
+        // navigate(`/waitingroom/${user.gameId}`)
     }
 
     const closeForm = () => {
@@ -38,6 +41,19 @@ const CreateGameForm = ( { formIsOpened, setFormIsOpened } ) => {
         })
         setFormIsOpened(false)
     }
+
+    // useEffect(() => {
+    //     if (user?.gameId) {
+    //         navigate(`/waitingroom/${user.gameId}`)
+    //     }
+    //     // Establece un intervalo que despache la acción cada 3 segundos
+    //     const intervalId = setInterval(() => {
+    //         dispatch(getLoggedUserThunk());
+    //     }, 3000); // PENDIENTE: volver a poner en 3 segundos: 3000
+
+    //     // Limpia el intervalo cuando el componente se desmonte
+    //     return () => clearInterval(intervalId);
+    // }, [])
 
     return (
         <div className = {`create_game-form_container ${!formIsOpened && "close_form"}`}>

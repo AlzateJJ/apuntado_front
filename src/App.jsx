@@ -17,7 +17,7 @@ function App() {
                 <Route path = '/' element = { <LoginPage /> } />
                 <Route element = { <ProtectedRoutes />} >
                     <Route path='/home' element = { <HomePage /> } />
-                    <Route path='/waitingroom:idgame' element = { <WaitingRoomPage /> } />
+                    <Route path='/waitingroom/:idgame' element = { <WaitingRoomPage /> } />
                 </Route>
             </Routes>
             

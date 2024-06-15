@@ -20,7 +20,7 @@ const AvailableGames = () => {
         // Establece un intervalo que despache la acción cada 3 segundos
         const intervalId = setInterval(() => {
             dispatch(getGamesThunk());
-        }, 300000000); // PENDIENTE: volver a poner en 3 segundos: 3000
+        }, 3000); // PENDIENTE: volver a poner en 3 segundos: 3000
 
         // Limpia el intervalo cuando el componente se desmonte
         return () => clearInterval(intervalId);
