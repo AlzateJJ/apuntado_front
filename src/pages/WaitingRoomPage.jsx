@@ -36,15 +36,21 @@ const WaitingRoomPage = () => {
     console.log(game?.users)
     return (
         <>
-            <h2 className='waiting_room-title'>Sala de espera</h2>
-
-            <section className='btns-wrapper'>
-                {
-                    user?.id == game?.adminUserID
-                    ? <button>Iniciar Juego</button>
-                    : <div>`usuario admin: ${game.userAdminID}`</div>
-                }
+            <section className='waiting_room-header'>
+                <h2 className='waiting_room-title'>Sala de espera para el juego:
+                    <span className='game_name'> {`${game?.name}`}</span>
+                </h2>
+                <article className='btns-wrapper'>
+                    {
+                        user?.id == game?.adminUserID
+                        ?   <button className='start_game-btn w_room_header-btn'>Iniciar Juego</button>
+                        :   <h3 className='admin_user-name'>`usuario admin: ${game?.adminUserID}`</h3>
+                    }
+                    <button className='leave_game-btn w_room_header-btn'>Salir del juego</button>
+                </article>
             </section>
+            
+            <h3 className='game_players-title'>{`Jugadores en sala de espera: ${game?.users.length} de ${game?.max_players}`}</h3>
             <section className='players-wrapper'>
                 {
                     game?.users.map(u => (

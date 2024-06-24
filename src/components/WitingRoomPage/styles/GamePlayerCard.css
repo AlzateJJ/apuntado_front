@@ -1,20 +1,23 @@
 
 .player-card {
     display: flex;
-    padding: 0.5em 1em;
-    gap: 2em;
     align-items: center;
     justify-content: center;
+    gap: 2em;
+    padding: 0.5em 4em;
+    border-radius: 0.4em;
+    border: 0.05px solid transparent;
     
     .player-name {
         color: white;
+        font-size: 1.3em;
     }
     .player-created_date {
-        color: blue;
+        color: rgba(123, 126, 119, 0.822);
     }
 
     &:hover {
         background-color: rgb(24, 22, 22);
-        
+        border: 0.05px solid rgb(183, 0, 255);
     }
 }

@@ -34,7 +34,6 @@ export const loginUserThunk = (user) => async (dispatch) => {
 
 export const updateUserThunk = (data, id) => async (dispatch) => {
     console.log('entré a updateUserThunk')
-    console.log(data)
     const url = 'http://localhost:8080'
     await axios.put(`${url}/users/${id}`, data, getConfigToken())
     .then(res => {

@@ -1,12 +1,59 @@
 
-.waiting_room-title {
-    color: rgb(255, 72, 0);
+.waiting_room-header {
+    display: flex;
+    flex-direction: row;
+    
+    .waiting_room-title {
+        text-align: center;
+        margin: 2em;
+        color: rgba(255, 255, 255, 0.808);
+    }
+    .game_name {
+        color: rgb(134, 8, 192);
+        font-size: 1.4em;
+    }
+    
+    .btns-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1em;
+        
+        .w_room_header-btn {
+            border: none;
+            padding: 0.6em 1.3em;
+            border-radius: 0.5em;
+            transition: transform 0.3s ease;
+
+            &:hover {
+                transform: scale(1.02);
+            }
+        }
+
+        .start_game-btn {
+            background-color: rgb(224, 34, 9);
+        }
+    
+        .admin_user-name {
+            background-color: red;
+        }
+    
+        .leave_game-btn {
+            background-color: rgb(59, 50, 50);
+        }
+    }
+}
+
+.game_players-title {
+    color: rgba(255, 255, 255, 0.733);
+    text-align: center;
 }
 
 .players-wrapper {
-    background-color: rgb(48, 48, 43);
-    padding: 1.5em 8em;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: rgb(48, 48, 43);
+    padding: 1.5em 8em;
+    border-radius: 0.2em;
 }
