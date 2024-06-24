@@ -2,6 +2,8 @@
 .waiting_room-header {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
     
     .waiting_room-title {
         text-align: center;

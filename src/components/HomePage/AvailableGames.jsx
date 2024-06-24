@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import CreateGameForm from './CreateGameForm'
 import { getGamesThunk } from '../../store/states/games.slice'
+import { updateUserThunk } from '../../store/states/users.slice'
 
 const AvailableGames = () => {
     console.log('entré a AbailableGames')
@@ -13,9 +14,11 @@ const AvailableGames = () => {
     const dispatch = useDispatch()
 
     const games = useSelector(store => store.games)
+    const user = useSelector(store => store.user);
 
     useEffect(() => {
         dispatch(getGamesThunk())
+        dispatch(updateUserThunk({... user, gameId: null}, user?.id))
 
         // Establece un intervalo que despache la acción cada 3 segundos
         const intervalId = setInterval(() => {

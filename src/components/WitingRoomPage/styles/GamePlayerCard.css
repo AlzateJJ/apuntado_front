@@ -4,7 +4,7 @@
     align-items: center;
     justify-content: center;
     gap: 2em;
-    padding: 0.5em 4em;
+    padding: 0.5em 8em;
     border-radius: 0.4em;
     border: 2px solid transparent;
     transition: backgrond-color 0.2s ease, border 0.4s ease, box-shadow 0.1s ease;

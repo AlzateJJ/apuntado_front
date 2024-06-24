@@ -12,9 +12,9 @@ const HomePage = () => {
     
     const user = useSelector(store => store.user);
     
-    useEffect(() => {
-        dispatch(getLoggedUserThunk())
-    }, [])
+    // useEffect(() => {
+    //     dispatch(getLoggedUserThunk())
+    // }, [])
 
     console.log(user)
 
