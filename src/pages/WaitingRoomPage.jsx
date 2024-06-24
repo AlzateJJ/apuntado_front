@@ -11,6 +11,7 @@ const WaitingRoomPage = () => {
     
     const { idgame } = useParams()
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const games = useSelector(store => store.games)
     const user = useSelector(store => store.user)
     
@@ -28,12 +29,27 @@ const WaitingRoomPage = () => {
         return () => clearInterval(intervalId);
     }, [])
     
-    console.log(games)
+    // console.log(games)
     const game = games?.find(g => g.id == idgame)
 
-    console.log(game)
-    console.log(user)
-    console.log(game?.users)
+    const handleLeaveGame = e => {
+        e.preventDefault()
+        if (user?.id == game?.adminUserID) {
+            // verificar que haya al menos otro usuario en la sala
+            if (game?.users.length > 1) {
+                // si hay, asignarle el adminUserID (al juego), si no, eliminar juego
+                // PENDIENTE: hacer el updateGameThunk
+            } else {
+                // PENDIENTE: crear el deleteGameThunk
+            }
+        } else {
+            dispatch(updateUserThunk({... user, gameId: null}, user.id))
+        }
+        navigate('/home')
+    }
+    // console.log(game)
+    // console.log(user)
+    // console.log(game?.users)
     return (
         <>
             <section className='waiting_room-header'>
@@ -44,9 +60,9 @@ const WaitingRoomPage = () => {
                     {
                         user?.id == game?.adminUserID
                         ?   <button className='start_game-btn w_room_header-btn'>Iniciar Juego</button>
-                        :   <h3 className='admin_user-name'>`usuario admin: ${game?.adminUserID}`</h3>
+                        :   <h3 className='admin_user-name'>{`usuario admin: ${game?.adminUserID}`}</h3>
                     }
-                    <button className='leave_game-btn w_room_header-btn'>Salir del juego</button>
+                    <button onClick={handleLeaveGame} className='leave_game-btn w_room_header-btn'>Salir del juego</button>
                 </article>
             </section>
             

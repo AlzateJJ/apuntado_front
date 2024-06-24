@@ -48,14 +48,13 @@ export const createGameThunk = (newGame) => async (dispatch) => {
     }
 };
 
-
-
-// export const createGameThunk = (newGame) => (dispatch) => {
+// export const updateGameThunk = (data, id) => async (dispatch) => { // falta
+//     console.log('entré a updateGameThunk')
 //     const url = 'http://localhost:8080'
-//     axios.post(`${url}/games`, newGame)
-//         .then(res => {
-//             // console.log(res.data)
-//             dispatch(addGame(res.data))
-//         })
-//         .catch(err => console.log(err))
+//     await axios.put(`${url}/games/${id}`, data, getConfigToken())
+//     .then(res => {
+//         console.log(res.data)
+//         dispatch(setUser(res.data));
+//     })
+//     .catch(err => console.log(err))
 // }

@@ -35,7 +35,8 @@
         }
     
         .admin_user-name {
-            background-color: red;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.808);
         }
     
         .leave_game-btn {
