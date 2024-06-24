@@ -1,0 +1,12 @@
+
+.waiting_room-title {
+    color: rgb(255, 72, 0);
+}
+
+.players-wrapper {
+    background-color: rgb(48, 48, 43);
+    padding: 1.5em 8em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

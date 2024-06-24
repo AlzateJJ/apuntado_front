@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import getConfigToken from '../../services/getConfigToken';
+import getLoggedUserThunk from './users.slice'
+import updateUserThunk from './users.slice'
 
 export const gamesslice = createSlice({
     name: 'games',
@@ -19,18 +21,19 @@ export const getGamesThunk = () => (dispatch) => {
     const url = 'http://localhost:8080'
     axios.get(`${url}/games`)
         .then(res => {
-            // console.log(res.data)
+            console.log(res.data)
             dispatch(setGames(res.data))
         })
         .catch(err => console.log(err))
 }
 
-export const getOneGameThunk = (gameId) => (dispatch) => {
+export const getOneGameThunk = (gameId) => async (dispatch) => {
     const url = 'http://localhost:8080'
-    axios.get(`${url}/games/${gameId}`)
+    await axios.get(`${url}/games/${gameId}`)
         .then(res => {
-            dispatch()
+            console.log(res)
         })
+        .catch(err => console.log(err))
 }
 
 export const createGameThunk = (newGame) => async (dispatch) => {

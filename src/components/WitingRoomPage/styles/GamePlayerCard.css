@@ -1,0 +1,20 @@
+
+.player-card {
+    display: flex;
+    padding: 0.5em 1em;
+    gap: 2em;
+    align-items: center;
+    justify-content: center;
+    
+    .player-name {
+        color: white;
+    }
+    .player-created_date {
+        color: blue;
+    }
+
+    &:hover {
+        background-color: rgb(24, 22, 22);
+        
+    }
+}

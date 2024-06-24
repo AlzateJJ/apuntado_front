@@ -16,7 +16,7 @@ const AvailableGameCard = ( { game } ) => {
     // e.preventDefault()
     // console.log(user)
     // se hace update al user, a usuario jugador
-    dispatch(updateUserThunk({ isPlaying: true, points: 0, gameId: game.id }, user.id))
+    dispatch(updateUserThunk({ gameId: game.id }, user.id))
     // console.log(user)
     // se hace update al game
 

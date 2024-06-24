@@ -1,27 +1,44 @@
 import { useForm } from 'react-hook-form'
 import './styles/CreateGameForm.css'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { createGameThunk } from '../../store/states/games.slice'
 import { getLoggedUserThunk, updateUserThunk } from '../../store/states/users.slice'
 import { useNavigate } from 'react-router-dom'
+import getConfigToken from '../../services/getConfigToken'
+import { addGame } from '../../store/states/games.slice'
+import { genericRequestThunk } from '../../store/states/app.slice'
+import axios from 'axios'
 
 const CreateGameForm = ( { formIsOpened, setFormIsOpened } ) => {
     console.log('entré a CreateGameForm')
 
     const { handleSubmit, register, reset } = useForm()
+    const [gameData, setGameData] = useState('')
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const user = useSelector(store => store.user);
-    console.log(user)
+    // console.log(user)
 
-    const submit = data => {
-        // crear el juego
-        dispatch(createGameThunk(data))
-        // hacer update del user admin del juego
-        // dispatch(updateUserThunk({ isPlaying: true }, user.id)) // , gameId: game.id // , gameId: games[games?.length-1].id
+    const submit = async data => {
+
+        let datos_juego
+        try {
+        const gameRes = await axios.post("http://localhost:8080/games", data, getConfigToken())
+            addGame(gameRes.data)
+            datos_juego = gameRes.data
+        }
+         catch (err) {
+            console.log(err)
+        }
+
+        // actualizar el user con el nuevo gameId
+        dispatch(updateUserThunk({... user, gameId: datos_juego.id}, datos_juego.adminUserID))
+
+        console.log(datos_juego)
+        navigate(`/waitingroom/${datos_juego.id}`)
 
         // resetear y cerrar form
         reset({
@@ -29,9 +46,6 @@ const CreateGameForm = ( { formIsOpened, setFormIsOpened } ) => {
             max_players: ''
         })
         setFormIsOpened(false)
-        
-        // dispatch(getLoggedUserThunk()) // PENDIENTE: actualizar el usuario local, y después hacer el navigate
-        // navigate(`/waitingroom/${user.gameId}`)
     }
 
     const closeForm = () => {
@@ -41,19 +55,6 @@ const CreateGameForm = ( { formIsOpened, setFormIsOpened } ) => {
         })
         setFormIsOpened(false)
     }
-
-    // useEffect(() => {
-    //     if (user?.gameId) {
-    //         navigate(`/waitingroom/${user.gameId}`)
-    //     }
-    //     // Establece un intervalo que despache la acción cada 3 segundos
-    //     const intervalId = setInterval(() => {
-    //         dispatch(getLoggedUserThunk());
-    //     }, 3000); // PENDIENTE: volver a poner en 3 segundos: 3000
-
-    //     // Limpia el intervalo cuando el componente se desmonte
-    //     return () => clearInterval(intervalId);
-    // }, [])
 
     return (
         <div className = {`create_game-form_container ${!formIsOpened && "close_form"}`}>
