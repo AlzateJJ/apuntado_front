@@ -9,22 +9,20 @@ const AvailableGameCard = ( { game } ) => {
   console.log(game)
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  
   const user = useSelector(store => store.user);
 
   const handleSubmit = (e) => {
-    // e.preventDefault()
-    // console.log(user)
-    // se hace update al user, a usuario jugador
+    e.preventDefault()
+
+    // se hace update al user
     dispatch(updateUserThunk({ gameId: game.id }, user.id))
-    // console.log(user)
-    // se hace update al game
+    // se hace update al game, PENDIENTE: necesario?
+    // verificar por medio del token, que el usuario sí pueda ingresar, PENDIENTE: necesario?
 
-    // se hace navigate a la sala de espera, que el id de la ruta sea el id del game?
+    // se hace navigate a la sala de espera
+    navigate(`/waitingroom/${game.id}`)
 
-    // verificar por medio del token, que el usuario sí pueda ingresar
     
-    // navigate('/waitingroom')
   }
   
   return ( // PENDIENTE: no sé por qué no aparecen los users del game de inmediato, toca esperar a que se recargue el componente
