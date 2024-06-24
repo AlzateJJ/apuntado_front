@@ -18,7 +18,10 @@ const AvailableGames = () => {
 
     useEffect(() => {
         dispatch(getGamesThunk())
-        dispatch(updateUserThunk({... user, gameId: null}, user?.id))
+        if (user?.gameId) {
+            dispatch(updateUserThunk({... user, gameId: null}, user?.id))
+            // PENDIENTE: falta el caso en el que el que se salga sea el admin del juego
+        }
 
         // Establece un intervalo que despache la acción cada 3 segundos
         const intervalId = setInterval(() => {
@@ -35,7 +38,7 @@ const AvailableGames = () => {
         setFormIsOpened(true)
     }
 
-    console.log(games)
+    // console.log(games)
     return (
         <section className='availableGames'>
             <div className="title_btn-wrapper">

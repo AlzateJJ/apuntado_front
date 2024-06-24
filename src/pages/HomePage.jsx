@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom'
 const HomePage = () => {
 
     console.log('entré a home')
-    const dispatch = useDispatch()
     
     const user = useSelector(store => store.user);
     
@@ -16,7 +15,7 @@ const HomePage = () => {
     //     dispatch(getLoggedUserThunk())
     // }, [])
 
-    console.log(user)
+    // console.log(user)
 
     const navigate = useNavigate()
     const handleLogOut = () => {

@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 const AvailableGameCard = ( { game } ) => {
   console.log('entré a AbailableGameCard')
-  console.log(game)
+  // console.log(game)
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const user = useSelector(store => store.user);

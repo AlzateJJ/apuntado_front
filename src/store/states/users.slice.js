@@ -37,7 +37,7 @@ export const updateUserThunk = (data, id) => async (dispatch) => {
     const url = 'http://localhost:8080'
     await axios.put(`${url}/users/${id}`, data, getConfigToken())
     .then(res => {
-        console.log(res.data)
+        // console.log(res.data)
         dispatch(setUser(res.data));
     })
     .catch(err => console.log(err))

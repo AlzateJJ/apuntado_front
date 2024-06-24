@@ -9,7 +9,14 @@ export const gamesslice = createSlice({
     initialState: null,
     reducers: {
         setGames: (state, action) => action.payload,
-        addGame: (state, {payload}) => {state.push(payload)}
+        addGame: (state, {payload}) => {state.push(payload)},
+        updateGame: (state, {payload: game}) => {
+            const index = state.findIndex(g => g.id === game.id)
+            state[index] = game
+        },
+        deleteGame: (state, { payload: id }) => {
+            state.filter(game => game.id !== id)
+        }
     }
 })
 
@@ -17,11 +24,11 @@ export const { setGames, addGame } = gamesslice.actions;
 
 export default gamesslice.reducer;
 
-export const getGamesThunk = () => (dispatch) => {
+export const getGamesThunk = () => async (dispatch) => {
     const url = 'http://localhost:8080'
-    axios.get(`${url}/games`)
+    await axios.get(`${url}/games`)
         .then(res => {
-            console.log(res.data)
+            // console.log(res.data)
             dispatch(setGames(res.data))
         })
         .catch(err => console.log(err))
@@ -48,13 +55,20 @@ export const createGameThunk = (newGame) => async (dispatch) => {
     }
 };
 
-// export const updateGameThunk = (data, id) => async (dispatch) => { // falta
-//     console.log('entré a updateGameThunk')
-//     const url = 'http://localhost:8080'
-//     await axios.put(`${url}/games/${id}`, data, getConfigToken())
-//     .then(res => {
-//         console.log(res.data)
-//         dispatch(setUser(res.data));
-//     })
-//     .catch(err => console.log(err))
-// }
+export const updateGameThunk = (data, id) => async dispatch => {
+    const url = 'http://localhost:8080'
+    await axios.put(`${url}/games/${id}`, data, getConfigToken())
+        .then(res => {
+            dispatch(updateGame(res.data))
+        })
+        .catch(err => console.log(err))
+}
+
+export const deleteGameThunk = id => async dispatch => {
+    const url = 'http://localhost:8080'
+    await axios.delete(`${url}/${id}`, getConfigToken())
+        .then(res => {
+            dispatch(deleteGame(id))
+        })
+        .catch(err => console.log(err))
+}

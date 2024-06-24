@@ -4,10 +4,10 @@ import './styles/GamePlayerCard.css'
 const GamePlayerCard = ( { player } ) => {
 	console.log('entré a GamePlayerCard')
 
-	console.log(player)
+	// console.log(player)
 
 	const today = new Date()
-	console.log(today)
+	// console.log(today)
 
   	return (
 		<div className='player-card'>
