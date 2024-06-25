@@ -35,7 +35,7 @@ const CreateGameForm = ( { formIsOpened, setFormIsOpened } ) => {
         }
 
         // actualizar el user con el nuevo gameId
-        console.log({... user, gameId: datos_juego.id})
+        console.log({... user, gameId: datos_juego?.id})
         dispatch(updateUserThunk({... user, gameId: datos_juego.id}, datos_juego.adminUserID))
 
         console.log(datos_juego)

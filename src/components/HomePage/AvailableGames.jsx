@@ -33,7 +33,7 @@ const AvailableGames = () => {
     }, [])
 
     // console.log(games)
-
+    console.log(user)
     const openForm = () => {
         setFormIsOpened(true)
     }
@@ -54,10 +54,12 @@ const AvailableGames = () => {
             <div className="games_wrapper">
                 {
                     games?.map(game => (
-                        < AvailableGameCard 
-                            key = {game.id}
-                            game = {game}
-                        />
+                        game.users.length && !game.started
+                            ?   < AvailableGameCard 
+                                    key = {game.id}
+                                    game = {game}
+                                />
+                            : null
                     ))
                 }
             </div>

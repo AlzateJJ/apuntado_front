@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 
 const HomePage = () => {
 
-    console.log('entré a home')
+    console.log('entré a HomePage')
     
     const user = useSelector(store => store.user);
     

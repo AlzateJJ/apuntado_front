@@ -22,15 +22,21 @@ const WaitingRoomPage = () => {
         
         // Establece un intervalo que despache la acción cada 3 segundos
         const intervalId = setInterval(() => {
+            console.log('ejecuto 3 secs')
             dispatch(getGamesThunk());
+
         }, 3000); // PENDIENTE: volver a poner en 3 segundos: 3000
         
         // Limpia el intervalo cuando el componente se desmonte
         return () => clearInterval(intervalId);
     }, [])
     
-    // console.log(games)
+    // se encuentra el juego
     const game = games?.find(g => g.id == idgame)
+
+    if (game?.started) { // si ya empezó el juego (por el admin), se hace el navigate al juego directamente
+        navigate(`/game/${game?.id}`)
+    }
 
     const handleLeaveGame = e => {
         e.preventDefault()
@@ -49,9 +55,14 @@ const WaitingRoomPage = () => {
         }
         navigate('/home')
     }
-    // console.log(game)
-    // console.log(user)
-    // console.log(game?.users)
+    
+    const handleStartGame = e => {
+        e.preventDefault()
+        console.log('juego comenzado')
+        dispatch(updateGameThunk({ ... game, started: true }, game.id))
+        navigate(`/game/${game?.id}`)
+    }
+
     return (
         <>
             <section className='waiting_room-header'>
@@ -61,7 +72,7 @@ const WaitingRoomPage = () => {
                 <article className='btns-wrapper'>
                     {
                         user?.id == game?.adminUserID
-                        ?   <button className='start_game-btn w_room_header-btn'>Iniciar Juego</button>
+                        ?   <button onClick={handleStartGame} className='start_game-btn w_room_header-btn'>Iniciar Juego</button>
                         :   <h3 className='admin_user-name'>{`usuario admin: ${game?.adminUserID}`}</h3>
                     }
                     <button onClick={handleLeaveGame} className='leave_game-btn w_room_header-btn'>Salir del juego</button>

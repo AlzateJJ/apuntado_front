@@ -66,7 +66,7 @@ export const updateGameThunk = (data, id) => async dispatch => {
 
 export const deleteGameThunk = id => async dispatch => {
     const url = 'http://localhost:8080'
-    await axios.delete(`${url}/${id}`, getConfigToken())
+    await axios.delete(`${url}/games/${id}`, getConfigToken())
         .then(res => {
             dispatch(deleteGame(id))
         })
