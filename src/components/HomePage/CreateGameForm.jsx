@@ -11,7 +11,7 @@ import { genericRequestThunk } from '../../store/states/app.slice'
 import axios from 'axios'
 
 const CreateGameForm = ( { formIsOpened, setFormIsOpened } ) => {
-    console.log('entré a CreateGameForm')
+    // console.log('entré a CreateGameForm')
 
     const { handleSubmit, register, reset } = useForm()
     const [gameData, setGameData] = useState('')

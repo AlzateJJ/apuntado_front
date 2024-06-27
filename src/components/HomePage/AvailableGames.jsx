@@ -7,7 +7,7 @@ import { getGamesThunk } from '../../store/states/games.slice'
 import { updateUserThunk } from '../../store/states/users.slice'
 
 const AvailableGames = () => {
-    console.log('entré a AbailableGames')
+    // console.log('entré a AbailableGames')
 
     const [formIsOpened, setFormIsOpened] = useState(false)
 
@@ -33,7 +33,7 @@ const AvailableGames = () => {
     }, [])
 
     // console.log(games)
-    console.log(user)
+    //console.log(user)
     const openForm = () => {
         setFormIsOpened(true)
     }

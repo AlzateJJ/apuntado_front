@@ -5,7 +5,7 @@ import { updateUserThunk } from '../../store/states/users.slice'
 import { useDispatch, useSelector } from 'react-redux'
 
 const AvailableGameCard = ( { game } ) => {
-  console.log('entré a AbailableGameCard')
+  // console.log('entré a AbailableGameCard')
   // console.log(game)
   const navigate = useNavigate()
   const dispatch = useDispatch()

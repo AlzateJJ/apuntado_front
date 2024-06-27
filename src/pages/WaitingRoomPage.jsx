@@ -7,7 +7,7 @@ import GamePlayerCard from '../components/WitingRoomPage/GamePlayerCard'
 import './styles/WaitingRoomPage.css'
 
 const WaitingRoomPage = () => {
-    console.log("entré a waiting room")
+    // console.log("entré a waiting room")
     
     const { idgame } = useParams()
     const dispatch = useDispatch()
@@ -22,7 +22,7 @@ const WaitingRoomPage = () => {
         
         // Establece un intervalo que despache la acción cada 3 segundos
         const intervalId = setInterval(() => {
-            console.log('ejecuto 3 secs')
+            // console.log('ejecuto 3 secs')
             dispatch(getGamesThunk());
 
         }, 3000); // PENDIENTE: volver a poner en 3 segundos: 3000

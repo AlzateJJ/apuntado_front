@@ -2,7 +2,7 @@ import React from 'react'
 import './styles/GamePlayerCard.css'
 
 const GamePlayerCard = ( { player } ) => {
-	console.log('entré a GamePlayerCard')
+	// console.log('entré a GamePlayerCard')
 
 	// console.log(player)
 

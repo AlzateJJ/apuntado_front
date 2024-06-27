@@ -20,7 +20,7 @@ export const gamesslice = createSlice({
     }
 })
 
-export const { setGames, addGame } = gamesslice.actions;
+export const { setGames, addGame, updateGame, deleteGame } = gamesslice.actions;
 
 export default gamesslice.reducer;
 
@@ -59,6 +59,7 @@ export const updateGameThunk = (data, id) => async dispatch => {
     const url = 'http://localhost:8080'
     await axios.put(`${url}/games/${id}`, data, getConfigToken())
         .then(res => {
+            console.log(res)
             dispatch(updateGame(res.data))
         })
         .catch(err => console.log(err))
