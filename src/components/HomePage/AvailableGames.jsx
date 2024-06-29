@@ -18,11 +18,6 @@ const AvailableGames = () => {
 
     useEffect(() => {
         dispatch(getGamesThunk())
-        if (user?.gameId) {
-            dispatch(updateUserThunk({... user, gameId: null}, user?.id))
-            // PENDIENTE: falta el caso en el que el que se salga sea el admin del juego
-        }
-
         // Establece un intervalo que despache la acción cada 3 segundos
         const intervalId = setInterval(() => {
             dispatch(getGamesThunk());
@@ -32,8 +27,12 @@ const AvailableGames = () => {
         return () => clearInterval(intervalId);
     }, [])
 
-    // console.log(games)
-    //console.log(user)
+    // console.log(user)
+    if (user?.gameId) { // PENDIENTE: a veces no funciona como se quiere
+        dispatch(updateUserThunk({gameId: null}, user.id))
+        // PENDIENTE: falta el caso en el que el que se salga sea el admin del juego
+    }
+
     const openForm = () => {
         setFormIsOpened(true)
     }
@@ -54,12 +53,12 @@ const AvailableGames = () => {
             <div className="games_wrapper">
                 {
                     games?.map(game => (
-                        game.users.length && !game.started
-                            ?   < AvailableGameCard 
+                        !game.started // && game.users.length PENDIENTE: validar que solo se muestren los juegos con jugadores
+                            ?   < AvailableGameCard
                                     key = {game.id}
                                     game = {game}
                                 />
-                            : null
+                            :   console.log(game)
                     ))
                 }
             </div>

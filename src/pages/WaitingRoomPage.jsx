@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
-import { deleteGameThunk, getGamesThunk, updateGameThunk } from '../store/states/games.slice'
+import { deleteGameThunk, getGamesThunk, serveCardsThunk, updateGameThunk } from '../store/states/games.slice'
 import { updateUserThunk } from '../store/states/users.slice'
 import GamePlayerCard from '../components/WitingRoomPage/GamePlayerCard'
 import './styles/WaitingRoomPage.css'
@@ -45,21 +45,22 @@ const WaitingRoomPage = () => {
                 const newGameAdmin = game?.users.find(user => user.id != game?.adminUserID) // encontrar nuevo admin
                 console.log(newGameAdmin)
                 dispatch(updateGameThunk({... game, adminUserID: newGameAdmin.id}, game.id)) // asignarle admin al juego
-                dispatch(updateUserThunk({... user, gameId: null}, user.id)) // sacar antigüo admin del juego
+                dispatch(updateUserThunk({gameId: null}, user.id)) // sacar antigüo admin del juego
             } else { // si solo queda 1 jugador (el admin) en el juego
                 dispatch(updateUserThunk({... user, gameId: null}, user.id)) // sacar al admin del juego
                 dispatch(deleteGameThunk(game.id)) // eliminar juego
             }
         } else { // si el que se sale es alguien que no es admin (queda mínimo el admin en el juego)
-            dispatch(updateUserThunk({... user, gameId: null}, user.id)) // sacar al jugador del juego
+            dispatch(updateUserThunk({gameId: null}, user.id)) // sacar al jugador del juego
         }
         navigate('/home')
     }
     
     const handleStartGame = e => {
         e.preventDefault()
+        dispatch(serveCardsThunk(game.id))
         console.log('juego comenzado')
-        dispatch(updateGameThunk({ ... game, started: true }, game.id))
+        dispatch(updateGameThunk({ started: true }, game.id))
         navigate(`/game/${game?.id}`)
     }
 

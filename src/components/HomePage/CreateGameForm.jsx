@@ -31,14 +31,16 @@ const CreateGameForm = ( { formIsOpened, setFormIsOpened } ) => {
             datos_juego = gameRes.data
         }
          catch (err) {
+            console.log(user)
             console.log(err)
         }
 
         // actualizar el user con el nuevo gameId
-        console.log({... user, gameId: datos_juego?.id})
-        dispatch(updateUserThunk({... user, gameId: datos_juego.id}, datos_juego.adminUserID))
-
         console.log(datos_juego)
+        console.log({... user, gameId: datos_juego?.id})
+        // dispatch(updateUserThunk({... user, gameId: datos_juego.id}, datos_juego.adminUserID))
+        dispatch(updateUserThunk({gameId: datos_juego.id}, datos_juego.adminUserID))
+
         navigate(`/waitingroom/${datos_juego.id}`)
 
         // resetear y cerrar form

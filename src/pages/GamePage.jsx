@@ -1,5 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import BtnsSection from '../components/GamePage/BtnsSection'
+import CardsSection from '../components/GamePage/CardsSection'
 
 const GamePage = () => {
     console.log('entré a GamePage')
@@ -12,10 +14,11 @@ const GamePage = () => {
     console.log(games)
 
     return (
-        <div>
+        <>
             <h3>GamePage</h3>
-
-        </div>
+            < BtnsSection />
+            < CardsSection/>
+        </>
     )
 }
 
