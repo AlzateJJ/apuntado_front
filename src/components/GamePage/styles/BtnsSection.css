@@ -1,0 +1,122 @@
+.game_btns-section {
+    height: 55vh;
+    width: 95vw;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+
+    position: relative;
+    /* padding-top: 3em; */
+
+    .end_game-btns {
+        display: flex;
+        gap: 1em;
+
+        padding-left: 2em;
+
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        .end_game_btn {
+            border-radius: 0.5em;
+            border: none;
+            padding: 1.5em 3em;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+        .tocar_btn {
+            background-color: blue;
+            color: white;
+
+            transition: background-color 0.5s ease, color 0.5s ease, transform 0.2s ease;
+
+            &:hover {
+                background-color: rgb(13, 7, 92);
+                transform: scale(1.02);
+            }
+        }
+        .bajarse_btn {
+            background-color: green;
+            color: white;
+            transition: background-color 0.5s ease, color 0.5s ease, transform 0.2s ease;
+
+            &:hover {
+                background-color: rgb(21, 92, 7);
+                color: black;
+                transform: scale(1.02);
+            }
+        }
+    }
+
+    .card_btns {
+        display: flex;
+        flex-direction: row;
+        align-items: end;
+        justify-content: center;
+        gap: 2em;
+        height: 100%;
+        width: 50%;
+
+        .arrastrar_btn {
+            height: 70%;
+            width: 35%;
+            overflow: hidden; /* Evita el overflow del contenido */
+            border: 1px solid red;
+            padding-bottom: 2em;
+            .arrastrar_img {
+                height: 100%; /* Mantiene la proporción de la imagen */
+                width: auto; /* La imagen ocupa el 100% del ancho del contenedor */
+                display: block; /* Elimina los espacios en blanco bajo la imagen */
+                margin: 0 auto;
+                /* max-width: 100%; Evita que la imagen exceda el tamaño del contenedor */
+            }
+        }
+
+        .carta_tirada-div {
+            height: 80%;
+            .carta_tirada-title {
+                margin: 0;
+                color: white;
+                text-align: center;
+            }
+            .carta_tirada-img_container {
+                width: 100%; /* El contenedor ocupa el 100% del ancho del padre */
+                height: 80%;
+                overflow: hidden; /* Evita el overflow del contenido */
+                border: 1px solid red;
+                .carta_tirada-img {
+                    width: auto; /* La imagen ocupa el 100% del ancho del contenedor */
+                    height: 100%; /* Mantiene la proporción de la imagen */
+                    display: block; /* Elimina los espacios en blanco bajo la imagen */
+                    max-width: 100%; /* Evita que la imagen exceda el tamaño del contenedor */
+                }
+            }
+        }
+    }
+
+    .tirar_btn-div {
+        margin-bottom: 2em;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+
+        .tirar_btn {
+            padding: 1.5em 3em;
+            background-color: rgb(216, 82, 5);
+            color: rgba(0, 0, 0, 0.836);
+            font-weight: 900;
+            border: none;
+            border-radius: 0.5em;
+            transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+
+            &:hover {
+                background-color: rgb(233, 70, 6);
+                color: black;
+                transform: scale(1.1);
+            }
+        }
+    }
+}

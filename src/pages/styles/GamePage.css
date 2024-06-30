@@ -1,0 +1,8 @@
+.gamePage_header {
+    height: 10vh;
+    width: 100vh;
+    .gamePage_title {
+        color:white;
+        margin: 0;
+    }
+}

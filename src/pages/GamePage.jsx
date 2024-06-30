@@ -2,6 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import BtnsSection from '../components/GamePage/BtnsSection'
 import CardsSection from '../components/GamePage/CardsSection'
+import './styles/GamePage.css'
 
 const GamePage = () => {
     console.log('entré a GamePage')
@@ -15,7 +16,9 @@ const GamePage = () => {
 
     return (
         <>
-            <h3>GamePage</h3>
+            <div className='gamePage_header'>
+                <h3 className='gamePage_title'>GamePage</h3>
+            </div>
             < BtnsSection />
             < CardsSection/>
         </>

@@ -4,6 +4,12 @@
     width: 9%;
     border: 2px solid white;
     border-radius: 0.5em;
+    background-color: rgb(241, 241, 223);
+    transition: transform 0.2s ease;
+
+    &:hover {
+        transform: scale(1.05);
+    }
 
     .card_header {
         height: 20%;
@@ -14,7 +20,7 @@
         .card_rank {
             margin: 0;
             padding: 0.3em 0.3em;
-            color: white;
+            /* color: white; */
         }
         .red_suit {
             color: red;
@@ -51,7 +57,7 @@
         .card_rank {
             margin: 0;
             padding: 0.3em 0.3em;
-            color: white;
+            /* color: white; */
         }
         .red_suit {
             color: red;
