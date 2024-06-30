@@ -1,0 +1,7 @@
+.cards_section {
+    height: 30vh;
+    width: 90vw;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5em;
+}

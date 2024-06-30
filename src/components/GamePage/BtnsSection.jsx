@@ -9,7 +9,6 @@ const BtnsSection = () => {
             <button className="game_btn">Arrastrar</button>
             <button className="game_btn">Tirar</button>
             <button className="game_btn">Coger carta tirada</button>
-            
         </section>
     )
 }

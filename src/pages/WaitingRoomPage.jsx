@@ -58,8 +58,8 @@ const WaitingRoomPage = () => {
     
     const handleStartGame = e => {
         e.preventDefault()
-        dispatch(serveCardsThunk(game.id))
         console.log('juego comenzado')
+        dispatch(serveCardsThunk(game.id))
         dispatch(updateGameThunk({ started: true }, game.id))
         navigate(`/game/${game?.id}`)
     }

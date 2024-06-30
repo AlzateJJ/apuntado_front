@@ -1,0 +1,60 @@
+
+.card {
+    height: 90%;
+    width: 9%;
+    border: 2px solid white;
+    border-radius: 0.5em;
+
+    .card_header {
+        height: 20%;
+        width: 100%;
+        display: flex; /* Hace que el contenedor use flexbox */
+        align-items: center; /* Centra verticalmente el contenido */
+        justify-content: flex-start; /* Empuja el contenido hacia la derecha */
+        .card_rank {
+            margin: 0;
+            padding: 0.3em 0.3em;
+            color: white;
+        }
+        .red_suit {
+            color: red;
+        }
+    }
+    .card_body {
+        height: 60%;
+        width: 90%;
+        margin: 0 auto;
+        display: flex; /* Utiliza flexbox para alineación */
+        justify-content: center; /* Centra horizontalmente */
+        align-items: center; /* Centra verticalmente */
+
+        .img_container {
+            width: 100%; /* El contenedor ocupa el 100% del ancho del padre */
+            overflow: hidden; /* Evita el overflow del contenido */
+
+            .card_img {
+                width: 100%; /* La imagen ocupa el 100% del ancho del contenedor */
+                height: auto; /* Mantiene la proporción de la imagen */
+                display: block; /* Elimina los espacios en blanco bajo la imagen */
+                max-width: 100%; /* Evita que la imagen exceda el tamaño del contenedor */
+            }
+        }
+        
+    }
+    .card_footer {
+        height: 20%;
+        width: 100%;
+        display: flex; /* Hace que el contenedor use flexbox */
+        justify-content: flex-end; /* Empuja el contenido hacia la derecha */
+        align-items: center; /* Centra verticalmente el contenido */
+    
+        .card_rank {
+            margin: 0;
+            padding: 0.3em 0.3em;
+            color: white;
+        }
+        .red_suit {
+            color: red;
+        }
+    }
+}
