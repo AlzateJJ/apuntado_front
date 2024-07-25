@@ -1,8 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import getConfigToken from '../../services/getConfigToken';
-import getLoggedUserThunk from './users.slice'
-import updateUserThunk from './users.slice'
 
 export const gamesslice = createSlice({
     name: 'games',
@@ -75,7 +73,10 @@ export const deleteGameThunk = id => async dispatch => {
 }
 
 export const serveCardsThunk = (id) => async dispatch => {
+    console.log(id)
     const url = 'http://localhost:8080'
+    console.log(`${url}/games/serve/${id}`)
+    console.log(getConfigToken())
     await axios.post(`${url}/games/serve/${id}`, getConfigToken())
         .then(res => {
             console.log(res.data)

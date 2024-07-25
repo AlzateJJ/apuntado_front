@@ -64,3 +64,14 @@
         }
     }
 }
+
+.selectedCard {
+    width: 12%;
+    border: 5px solid purple;
+    background-color: rgb(139, 139, 127);
+    transition: transform 0.2s ease;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}

@@ -34,7 +34,8 @@ const WaitingRoomPage = () => {
     // se encuentra el juego
     const game = games?.find(g => g.id == idgame)
 
-    if (game?.started) { // si ya empezó el juego (por el admin), se hace el navigate al juego directamente
+    const handleJoinGame = e => {
+        e.preventDefault()
         navigate(`/game/${game?.id}`)
     }
 
@@ -59,9 +60,10 @@ const WaitingRoomPage = () => {
     const handleStartGame = e => {
         e.preventDefault()
         console.log('juego comenzado')
+        console.log(game.id)
         dispatch(serveCardsThunk(game.id))
         dispatch(updateGameThunk({ started: true }, game.id))
-        navigate(`/game/${game?.id}`)
+        navigate(`/game/${game.id}`)
     }
 
     return (
@@ -74,13 +76,15 @@ const WaitingRoomPage = () => {
                     {
                         user?.id == game?.adminUserID
                         ?   <button onClick={handleStartGame} className='start_game-btn w_room_header-btn'>Iniciar Juego</button>
-                        :   <h3 className='admin_user-name'>{`usuario admin: ${game?.adminUserID}`}</h3>
+                        :   (game?.started
+                            ?   <button onClick={handleJoinGame} className='join_game-btn w_room_header-btn'>Entrar al Juego!</button>
+                            :   <h3 className='admin_user-name'>{`usuario admin: ${game?.adminUserID}`}</h3>)
                     }
                     <button onClick={handleLeaveGame} className='leave_game-btn w_room_header-btn'>Salir del juego</button>
                 </article>
             </section>
             
-            <h3 className='game_players-title'>{`Jugadores en sala de espera: ${game?.users.length} de ${game?.max_players}`}</h3>
+            <h3 className='game_players-title'>{`Jugadores en sala de espera: ${game?.users.length}`}</h3>
             <section className='players-wrapper'>
                 {
                     game?.users.map(u => (

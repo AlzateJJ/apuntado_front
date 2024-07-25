@@ -36,12 +36,12 @@ const AvailableGames = () => {
     const openForm = () => {
         setFormIsOpened(true)
     }
-
+    // PENDIENTE: cuando todos los juegos que hay están empezados, se muestra el string que no es: "Juegos a los que te puedes unir"
     // console.log(games)
     return (
         <section className='availableGames'>
             <div className="title_btn-wrapper">
-                <h2 className='games_title'>Juegos a los que te puedes unir</h2>
+                <h2 className='games_title'>{games?.length > 0 ? 'Juegos a los que te puedes unir' : 'No hay juegos disponibles todavía, crea uno!'}</h2>
                 <button className="create_game-btn" onClick={openForm}>Crear Juego</button>
             </div>
 

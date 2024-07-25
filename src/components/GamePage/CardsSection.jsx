@@ -4,16 +4,11 @@ import { getLoggedUserThunk } from '../../store/states/users.slice'
 import Card from './Card'
 import './styles/CardsSection.css'
 
-const CardsSection = () => {
+const CardsSection = ( { selectCard, selectedCard } ) => {
 
-    const dispatch = useDispatch()
     const user = useSelector(store => store.user)
 
     console.log(user)
-    
-    useEffect(() => {
-        dispatch(getLoggedUserThunk())
-    }, [])
 
     return (
         <section className='cards_section'>
@@ -22,6 +17,8 @@ const CardsSection = () => {
                     <Card 
                         card = { card }
                         key = { card.id}
+                        selectCard = { selectCard }
+                        selectedCard = {selectedCard}
                     />
                 ))
             }

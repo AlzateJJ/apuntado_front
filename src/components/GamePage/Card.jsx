@@ -1,10 +1,18 @@
 import React from 'react'
 import './styles/Card.css'
 
-const Card = ( { card } ) => {
+const Card = ( { card, selectCard, selectedCard } ) => {
+
+    const handleClick = e => {
+        if (card == selectedCard) {
+            selectCard('')
+        } else {
+            selectCard(card)
+        }
+    }
 
     return (
-        <article className='card'>
+        <article className={`card ${card.id === selectedCard.id && 'selectedCard'}`} onClick={handleClick}>
             <header className='card_header'>
                 <h2 className={`card_rank ${(card.suit === 'corazón' || card.suit === 'diamante') && 'red_suit'}`}>{`${card.rank}`}</h2>
             </header>

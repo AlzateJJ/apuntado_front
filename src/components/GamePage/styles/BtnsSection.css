@@ -59,19 +59,26 @@
         gap: 2em;
         height: 100%;
         width: 50%;
-
-        .arrastrar_btn {
-            height: 70%;
-            width: 35%;
-            overflow: hidden; /* Evita el overflow del contenido */
-            border: 1px solid red;
-            padding-bottom: 2em;
-            .arrastrar_img {
-                height: 100%; /* Mantiene la proporción de la imagen */
-                width: auto; /* La imagen ocupa el 100% del ancho del contenedor */
-                display: block; /* Elimina los espacios en blanco bajo la imagen */
-                margin: 0 auto;
-                /* max-width: 100%; Evita que la imagen exceda el tamaño del contenedor */
+        
+        .arrastrar-div {
+            height: 80%;
+            .arrastrar-title {
+                margin: 0;
+                color: white;
+                text-align: center;
+            }
+            .arrastrar-img_container {
+                width: 100%; /* El contenedor ocupa el 100% del ancho del padre */
+                height: 80%;
+                overflow: hidden; /* Evita el overflow del contenido */
+                /* border: 1px solid red; */
+                .arrastrar_img {
+                    width: auto; /* La imagen ocupa el 100% del ancho del contenedor */
+                    height: 100%; /* Mantiene la proporción de la imagen */
+                    display: block; /* Elimina los espacios en blanco bajo la imagen */
+                    margin: 0 auto;
+                    /* max-width: 100%; Evita que la imagen exceda el tamaño del contenedor */
+                }
             }
         }
 
@@ -86,7 +93,7 @@
                 width: 100%; /* El contenedor ocupa el 100% del ancho del padre */
                 height: 80%;
                 overflow: hidden; /* Evita el overflow del contenido */
-                border: 1px solid red;
+                /* border: 1px solid red; */
                 .carta_tirada-img {
                     width: auto; /* La imagen ocupa el 100% del ancho del contenedor */
                     height: 100%; /* Mantiene la proporción de la imagen */
