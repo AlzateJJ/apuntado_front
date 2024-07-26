@@ -8,7 +8,7 @@ const CardsSection = ( { selectCard, selectedCard } ) => {
 
     const user = useSelector(store => store.user)
 
-    console.log(user)
+    // console.log(user)
 
     return (
         <section className='cards_section'>

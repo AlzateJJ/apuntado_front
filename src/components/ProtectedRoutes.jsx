@@ -14,10 +14,10 @@ const ProtectedRoutes = () => {
     useEffect(() => {
         dispatch(getLoggedUserThunk())
     }, [])
-    console.log(user)
+    // console.log(user)
     
     if (localStorage.getItem('token')) { // PENDIENTE: Arreglar login
-        console.log('hay token')
+        // console.log('hay token')
         
         return <Outlet />
         // if (user?.gameId) {

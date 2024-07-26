@@ -5,6 +5,7 @@ import CardsSection from '../components/GamePage/CardsSection'
 import './styles/GamePage.css'
 import { getLoggedUserThunk } from '../store/states/users.slice'
 import { getGamesThunk } from '../store/states/games.slice'
+import { getCardsThunk } from '../store/states/cards.slice'
 
 const GamePage = () => {
     console.log('entré a GamePage')
@@ -15,24 +16,35 @@ const GamePage = () => {
     const [ selectedCard, setSelectedCard ] = useState('')
 
     useEffect(() => {
-        dispatch(getLoggedUserThunk())
-        dispatch(getGamesThunk()) // PENDIENTE: por qué es necesario hacer el get?
-    }, [])
+        const intervalId = setInterval(() => {
+            dispatch(getLoggedUserThunk());
+            dispatch(getGamesThunk()); // PENDIENTE: por qué es necesario hacer el get?
+            dispatch(getCardsThunk())
+        }, 3000);
 
-    console.log(user)
-    console.log(selectedCard)
+        return () => clearInterval(intervalId); // Limpia el intervalo cuando el componente se desmonta
+    }, []); // Solo se ejecuta una vez al montar, pero mantiene el intervalo
 
-    console.log(games)
+    //console.log(user)
+    // console.log(selectedCard)
+
+    // console.log(games)
     // se encuentra el juego
     const game = games?.find(g => g.id == user?.gameId)
 
     return (
         <>
             <div className='gamePage_header'>
-                <h3 className='gamePage_title'>GamePage</h3>
+                {
+                    game?.turnplayerID === user?.id
+                    ?
+                        <h3 className='gamePage_title'>Es tu turno!</h3>
+                    :
+                        <h3 className='gamePage_title'>{`Todavía no es tu turno, está jugando el jugador con Id: ${game?.turnplayerID}`}</h3>
+                }
             </div>
             {
-                game?.turnplayerID == user?.id 
+                game?.turnplayerID == user?.id
                 ?
                     <>
                         < BtnsSection 
@@ -45,7 +57,6 @@ const GamePage = () => {
                     </>
                 :
                     <>
-                        <h2>No es tu turno todavía</h2>
                         < CardsSection
                             selectCard = {setSelectedCard}
                             selectedCard = {selectedCard}

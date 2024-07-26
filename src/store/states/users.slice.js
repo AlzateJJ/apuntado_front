@@ -35,6 +35,8 @@ export const loginUserThunk = (user) => async (dispatch) => {
 export const updateUserThunk = (data, id) => async (dispatch) => {
     console.log('entré a updateUserThunk')
     const url = 'http://localhost:8080'
+    console.log(data)
+    console.log(id)
     await axios.put(`${url}/users/${id}`, data, getConfigToken())
     .then(res => {
         console.log(res.data)
@@ -49,7 +51,7 @@ export const getLoggedUserThunk = () => (dispatch) => {
     // axios.get(`${url}/users/me`)
     axios.get(`${url}/users/me`, getConfigToken())
     .then(res => {
-        console.log(res.data)
+        // console.log(res.data)
         dispatch(setUser(res.data));
     })
     .catch(err => console.log(err))

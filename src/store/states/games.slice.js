@@ -53,7 +53,7 @@ export const createGameThunk = (newGame) => async (dispatch) => {
     }
 };
 
-export const updateGameThunk = (data, id) => async dispatch => {
+export const updateGameThunk = (data, id) => async (dispatch) => {
     const url = 'http://localhost:8080'
     await axios.put(`${url}/games/${id}`, data, getConfigToken())
         .then(res => {
@@ -63,7 +63,7 @@ export const updateGameThunk = (data, id) => async dispatch => {
         .catch(err => console.log(err))
 }
 
-export const deleteGameThunk = id => async dispatch => {
+export const deleteGameThunk = id => async (dispatch) => {
     const url = 'http://localhost:8080'
     await axios.delete(`${url}/games/${id}`, getConfigToken())
         .then(res => {
@@ -72,12 +72,10 @@ export const deleteGameThunk = id => async dispatch => {
         .catch(err => console.log(err))
 }
 
-export const serveCardsThunk = (id) => async dispatch => {
+export const serveCardsThunk = (id) => async (dispatch) => {
     console.log(id)
     const url = 'http://localhost:8080'
-    console.log(`${url}/games/serve/${id}`)
-    console.log(getConfigToken())
-    await axios.post(`${url}/games/serve/${id}`, getConfigToken())
+    await axios.post(`${url}/serve/games/${id}`) // , getConfigToken()
         .then(res => {
             console.log(res.data)
             dispatch(updateGame(res.data))
