@@ -17,9 +17,10 @@ export const { setCards, updateCard } = cardsslice.actions;
 
 export default cardsslice.reducer;
 
-export const getCardsThunk = () => async (dispatch) => {
+export const getCardsThunk = (deckId) => async (dispatch) => {
+    // console.log('entré a getCardsThunk')
     const url = 'http://localhost:8080'
-    await axios.get(`${url}/cards`)
+    await axios.get(`${url}/cards/deck/${deckId}`)
         .then(res => {
             // console.log(res.data)
             dispatch(setCards(res.data))

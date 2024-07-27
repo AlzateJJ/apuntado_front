@@ -4,7 +4,7 @@ import getConfigToken from '../../services/getConfigToken';
 
 export const gamesslice = createSlice({
     name: 'games',
-    initialState: null,
+    initialState: [],
     reducers: {
         setGames: (state, action) => action.payload,
         addGame: (state, {payload}) => {state.push(payload)},

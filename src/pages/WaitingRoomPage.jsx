@@ -64,6 +64,7 @@ const WaitingRoomPage = () => {
         dispatch(serveCardsThunk(game.id))
         dispatch(updateGameThunk({ started: true }, game.id))
         navigate(`/game/${game.id}`)
+        
     }
 
     return (

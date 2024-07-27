@@ -46,7 +46,7 @@ export const updateUserThunk = (data, id) => async (dispatch) => {
 }
 
 export const getLoggedUserThunk = () => (dispatch) => {
-    console.log('entré a getLoggedUserThunk')
+    // console.log('entré a getLoggedUserThunk')
     const url = 'http://localhost:8080'
     // axios.get(`${url}/users/me`)
     axios.get(`${url}/users/me`, getConfigToken())

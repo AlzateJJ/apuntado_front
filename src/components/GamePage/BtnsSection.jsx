@@ -1,22 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './styles/BtnsSection.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { getLoggedUserThunk, updateUserThunk } from '../../store/states/users.slice'
 import { updateGameThunk } from '../../store/states/games.slice'
 import { updateCardThunk } from '../../store/states/cards.slice'
 
-const BtnsSection = ( { selectedCard } ) => {
+const BtnsSection = ( { selectedCard, selectCard } ) => {
 
     const dispatch = useDispatch()
     const user = useSelector(store => store.user)
-
     const games = useSelector(store => store.games)
-    // console.log(games)
+    const cards = useSelector(store => store.cards)
+    // console.log(cards)
+
     const game = games?.find(g => g.id == user?.gameId) // se encuentra el juego
     // console.log(game)
 
+    const [cartaEscogida, setCartaEscogida] = useState(false)
+
     const handleTocar = (e) => {
-        e.preventDefault()  
+        e.preventDefault()
     }
 
     const handleBajarse = (e) => {
@@ -25,7 +28,29 @@ const BtnsSection = ( { selectedCard } ) => {
 
     const handleArrastrar = (e) => {
         e.preventDefault()
-        
+
+        // 1. se busca en el deck una carta random que tenga state 1
+        const retrieveRandomDeckCard = (deck) => {
+            const availableCards = deck.filter(card => card.state === 1 && !card.userId);
+            console.log(availableCards)
+            console.log(availableCards.length)
+
+            if (availableCards.length === 0) {
+                // PENDIENTE: lógica para cuando se acaben las cartas
+                return null;
+            }
+
+            const randomIndex = Math.floor(Math.random() * availableCards.length);
+            return availableCards[randomIndex];
+        }
+
+        const card = retrieveRandomDeckCard(cards)
+        // 2. se le actualiza el estado a 2 y se le asigna al jugador
+        dispatch(updateCardThunk({ ...card, state: 2, userId: user.id}, card.id))
+        // 3. se quitan datos de discarded_card y se actualiza esa carta con estado 4 y sin userId
+        dispatch(updateCardThunk({ ...game.discarded_card.card, userId: null, state: 4}, game.discarded_card.card.id))
+        // dispatch(updateGameThunk({ ...game, discarded_card: {playerId: null, card: null} }, game.id)) // PENDIENTE: puede que no sea necesario porque cuando el jugador tira la carta, actualiza los datos de discarded_card
+        setCartaEscogida(true)
     }
 
     const handleCogerCartaTirada = (e) => {
@@ -34,6 +59,8 @@ const BtnsSection = ( { selectedCard } ) => {
 
         // console.log({ ...game.discarded_card.card, userId: user.id, state: 2})
         dispatch(updateCardThunk({ ...game.discarded_card.card, userId: user.id, state: 2}, game.discarded_card.card.id))
+        setCartaEscogida(true)
+        selectCard('')
     }
 
     const handleTirarCarta = (e) => {
@@ -65,8 +92,10 @@ const BtnsSection = ( { selectedCard } ) => {
             }
             , game.id
         ))
+        selectCard(false)
     }
 
+    // console.log(selectedCard)
     return (
         <section className='game_btns-section'>
             {
@@ -84,17 +113,19 @@ const BtnsSection = ( { selectedCard } ) => {
                 user?.cards.length === 10
                 ?
                     <article className='card_btns'>
-                        <div className='arrastrar-div'>
-                            <h4 className='arrastrar-title'>Arrastrar del mazo</h4>
-                            <div className="arrastrar-img_container" onClick={handleArrastrar}>
-                                <img src='../../../deck.png' className='arrastrar_img' alt="imagen del mazo"></img>
-                            </div>
-                        </div>
-                        <div className='carta_tirada-div'>
-                            <h4 className='carta_tirada-title'>{`Coger carta tirada por jugador con Id: ${game.discarded_card.playerId}`}</h4>
-                            {
-                                game?.discarded_card.card
-                                ?
+                        
+                        {
+                            game?.discarded_card.card && !cartaEscogida
+                            ?
+                                <>
+                                <div className='arrastrar-div'>
+                                    <h4 className='arrastrar-title'>Arrastrar del mazo</h4>
+                                    <div className="arrastrar-img_container" onClick={handleArrastrar}>
+                                        <img src='../../../deck.png' className='arrastrar_img' alt="imagen del mazo"></img>
+                                    </div>
+                                </div>
+                                <div className='carta_tirada-div'>
+                                    <h4 className='carta_tirada-title'>{`Coger carta tirada por jugador con Id: ${game.discarded_card.playerId}`}</h4>
                                     <article className='card' onClick={handleCogerCartaTirada}>
                                         <header className='card_header'>
                                             <h2 className={`card_rank ${(game.discarded_card.card.suit === 'corazón' || game.discarded_card.card.suit === 'diamante') && 'red_suit'}`}>{`${game.discarded_card.card.rank}`}</h2>
@@ -108,10 +139,11 @@ const BtnsSection = ( { selectedCard } ) => {
                                             <h2 className={`card_rank ${(game.discarded_card.card.suit === 'corazón' || game.discarded_card.card.suit === 'diamante') && 'red_suit'}`}>{`${game.discarded_card.card.rank}`}</h2>
                                         </footer>
                                     </article>
-                                :
-                                <h2>No hay carta tirada</h2>
-                            }
-                        </div>
+                                </div>
+                                </>
+                            :
+                                null
+                        }
                     </article>
                 :
                     null
