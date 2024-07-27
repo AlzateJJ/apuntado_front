@@ -181,24 +181,35 @@
     }
 
     .tirar_btn-div {
-        margin-bottom: 2em;
+        margin-bottom: 0.5em;
         position: absolute;
         bottom: 0;
         right: 0;
 
         .tirar_btn {
-            padding: 1.5em 3em;
-            background-color: rgb(216, 82, 5);
-            color: rgba(0, 0, 0, 0.836);
+            padding: 1em 3em;
+            background-image: repeating-linear-gradient(135deg, rgba(0,0,0,0.04) 0px, rgba(0,0,0,0.04) 2px,transparent 2px, transparent 4px),linear-gradient(45deg, rgb(190,35,0),rgb(255,216,0));
+            color: rgba(0, 0, 0, 0.836); /* Color del texto original */
             font-weight: 900;
-            border: none;
-            border-radius: 0.5em;
-            transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
-
+            border: 2px solid rgb(255, 81, 0);
+            border-radius: 0.5em; /* Bordes redondeados */
+            font-size: 1em; /* Tamaño de fuente */
+            letter-spacing: 0.05em; /* Espaciado entre letras */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Transiciones más suaves */
+        
+            /* Efecto de enfoque */
+            &:focus {
+                outline: none; /* Quitar contorno predeterminado del enfoque */
+                box-shadow: 0 0 0 3px rgba(216, 82, 5, 0.5); /* Contorno enfocado en color del botón */
+            }
+        
+            /* Efecto en el estado hover */
             &:hover {
-                background-color: rgb(233, 70, 6);
-                color: black;
-                transform: scale(1.1);
+                background-color: rgb(233, 70, 6); /* Color de fondo en hover */
+                color: black; /* Color del texto en hover */
+                transform: scale(1.1); /* Aumento de tamaño en hover */
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada en hover */
             }
         }
     }

@@ -1,8 +1,12 @@
 .cards_section {
     height: 30vh;
-    width: 90vw;
+    width: 95vw;
+
     display: flex;
     flex-direction: row;
     gap: 0.5em;
-    margin: 0 auto;
+
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
 }

@@ -23,7 +23,13 @@ const BtnsSection = ( { selectedCard, selectCard } ) => {
     }
 
     const handleBajarse = (e) => {
-        e.preventDefault()  
+        e.preventDefault()
+        // verificar que el jugador pueda bajarse
+        // terminar la ronda
+        // actualizar los puntos de todos los jugadores
+        // sacar jugadores si es necesario, declarar ganador si es necesario
+        // empezra una nueva ronda con los jugadores restantes
+        // volver a ejecutar serveCards, pero esta vez, el que recibe 11 es el ganador, no el primero
     }
 
     const handleArrastrar = (e) => {
@@ -103,7 +109,7 @@ const BtnsSection = ( { selectedCard, selectCard } ) => {
                 ?
                     <article className='end_game-btns'>
                         <button className="end_game_btn tocar_btn" onClick={handleTocar}>Tocar</button>
-                        <button className="end_game_btn bajarse_btn">Bajarse</button>
+                        <button className="end_game_btn bajarse_btn" onClick={handleBajarse}>Bajarse</button>
                     </article>
                 :
                     null
@@ -125,7 +131,16 @@ const BtnsSection = ( { selectedCard, selectCard } ) => {
                                     </div>
                                 </div>
                                 <div className='carta_tirada-div'>
-                                    <h4 className='carta_tirada-title'>{`Coger carta tirada por jugador con Id: ${game.discarded_card.playerId}`}</h4>
+                                    {
+                                        game?.users
+                                        ?
+                                            <h4 className='carta_tirada-title'>{`Coger carta tirada por 
+                                                ${(game.users.find(p => p.id === game.discarded_card.playerId)).firstName}
+                                                ${(game.users.find(p => p.id === game.discarded_card.playerId)).lastName}
+                                            `}</h4>
+                                            :
+                                            <h4 className='carta_tirada-title'>{`Coger carta tirada`}</h4>
+                                    }
                                     <article className='card' onClick={handleCogerCartaTirada}>
                                         <header className='card_header'>
                                             <h2 className={`card_rank ${(game.discarded_card.card.suit === 'corazón' || game.discarded_card.card.suit === 'diamante') && 'red_suit'}`}>{`${game.discarded_card.card.rank}`}</h2>

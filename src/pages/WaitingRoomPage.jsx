@@ -14,7 +14,7 @@ const WaitingRoomPage = () => {
     const navigate = useNavigate()
     const games = useSelector(store => store.games)
     const user = useSelector(store => store.user)
-    
+    const game = games?.find(g => g.id == idgame) // se encuentra el juego
     // console.log(idgame)
 
     useEffect(() => {
@@ -31,8 +31,6 @@ const WaitingRoomPage = () => {
         return () => clearInterval(intervalId);
     }, [])
     
-    // se encuentra el juego
-    const game = games?.find(g => g.id == idgame)
 
     const handleJoinGame = e => {
         e.preventDefault()
@@ -66,7 +64,8 @@ const WaitingRoomPage = () => {
         navigate(`/game/${game.id}`)
         
     }
-
+    // console.log(game)
+    // console.log(user)
     return (
         <>
             <section className='waiting_room-header'>
@@ -79,7 +78,17 @@ const WaitingRoomPage = () => {
                         ?   <button onClick={handleStartGame} className='start_game-btn w_room_header-btn'>Iniciar Juego</button>
                         :   (game?.started
                             ?   <button onClick={handleJoinGame} className='join_game-btn w_room_header-btn'>Entrar al Juego!</button>
-                            :   <h3 className='admin_user-name'>{`usuario admin: ${game?.adminUserID}`}</h3>)
+                            :   (
+                                    game?.users
+                                    ?
+                                        <h3 className='admin_user-name'>{`Esperando que  
+                                            ${(game?.users.find(p => p.id === game?.adminUserID)).firstName} 
+                                            ${(game?.users.find(p => p.id === game?.adminUserID)).lastName}
+                                        inicie el juego`}</h3>
+                                        :
+                                            <h3>Esperando que el administrador inicie el juego</h3>
+                                )
+                            )
                     }
                     <button onClick={handleLeaveGame} className='leave_game-btn w_room_header-btn'>Salir del juego</button>
                 </article>

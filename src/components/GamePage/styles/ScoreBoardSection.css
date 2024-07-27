@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Sevillana&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+.close_scoreBoard {
+    transform: scale(0);
+}
+
+.scoreBoard {
+    font-family: Arial, sans-serif;
+    background-image: radial-gradient(circle at center center, transparent 0%,rgb(0,0,0) 99%),repeating-linear-gradient(0deg, rgba(163, 163, 163,0.2) 0px, rgba(163, 163, 163,0.2) 1px,transparent 1px, transparent 6px),repeating-linear-gradient(90deg, rgba(163, 163, 163,0.2) 0px, rgba(163, 163, 163,0.2) 1px,transparent 1px, transparent 6px),linear-gradient(90deg, rgb(0,0,0),rgb(0,0,0));
+    padding: 0.9em;
+    border-radius: 4px;
+    border: 5px solid black;
+
+    width: 30%;
+    max-width: 300px;
+    min-width: 200px;
+    min-height: 80px;
+
+    position: absolute;
+    top: 100px;
+    right: 20px;
+
+    .scoreBoard-header {
+        text-align: center;
+        margin-bottom: 0.5em;
+        background-image: repeating-linear-gradient(45deg, rgba(0,0,0, 0.06) 0px, rgba(0,0,0, 0.06) 2px,transparent 2px, transparent 4px),linear-gradient(45deg, rgb(33,33,33),transparent),linear-gradient(90deg, rgb(33,33,33),transparent),linear-gradient(90deg, rgb(0,0,0),rgb(0,0,0));
+
+        .scoreBoard-title {
+            font-family: 'Sevillana', sans-serif;
+            font-weight: 800;
+            color: white; /* Verde oscuro */
+            font-size: 20px;
+            margin: 0;
+            text-align: center;
+        }
+    }
+
+    .scoreBoard-body {
+        display: flex;
+        flex-direction: row;
+        gap: 0.8em;
+
+        .players_wrapper {
+            display: flex;
+            flex-direction: column;
+            width: 92%;
+
+            .scoreBoard-player {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                /* background-color: #c8e6c9; */
+                padding: 0.2em;
+                margin-bottom: 0.3em;
+                border-radius: 4px;
+                
+                .scoreBoard-player_name_div, .scoreBoard-player_points_div {
+                    flex: 1;
+                    
+                    .scoreBoard-player_name, .scoreBoard-player_points {
+                        font-family: 'Playfair+Display', sans-serif;
+                        color: rgba(255, 255, 255, 0.719);
+                        font-size: 12px;
+                        margin: 0;
+                        text-align: center;
+                    }
+                }
+            }
+        }
+
+        .scoreBoard_close-btn {
+            width: 5%;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: red;
+        }
+    }
+    /* .scoreBoard_close-btn {
+        height: 100%;
+        width: 5%;
+        font-size: 0.6em;
+    } */
+    
+}

@@ -13,7 +13,7 @@ const CardsSection = ( { selectCard, selectedCard } ) => {
     return (
         <section className='cards_section'>
             {
-                user?.cards.map(card => (
+                user?.cards?.map(card => (
                     <Card 
                         card = { card }
                         key = { card.id}

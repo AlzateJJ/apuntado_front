@@ -15,6 +15,7 @@ const GamePage = () => {
     const user = useSelector(store => store.user)
     // console.log(games)
     const [ selectedCard, setSelectedCard ] = useState('')
+    const [openScoreBoard, setopenScoreBoard] = useState(false)
 
     // console.log(user)
     useEffect(() => {
@@ -22,18 +23,18 @@ const GamePage = () => {
             dispatch(getLoggedUserThunk());
             dispatch(getGamesThunk()); // PENDIENTE: por qué es necesario hacer el get?
             dispatch(getCardsThunk(user?.gameId))
-        }, 30000000);
+        }, 3000);
 
         return () => clearInterval(intervalId); // Limpia el intervalo cuando el componente se desmonta
     }, []); // Solo se ejecuta una vez al montar, pero mantiene el intervalo
 
-    // console.log(user)
-    // console.log(selectedCard)
-    // console.log(games)
-
     const game = games?.find(g => g.id == user?.gameId) // se encuentra el juego
 
-    //console.log(game)
+    const handleScoreBoard = e => {
+        e.preventDefault()
+        setopenScoreBoard(true)
+    }
+
     return (
         <>
             <div className='gamePage_header'>
@@ -54,28 +55,41 @@ const GamePage = () => {
                         )
                 }
             </div>
-            {
-                game?.turnplayerID == user?.id
-                ?
-                    <>
-                        < BtnsSection 
-                            selectedCard = {selectedCard}
-                            selectCard = {setSelectedCard}
-                        />
-                        < CardsSection
-                            selectCard = {setSelectedCard}
-                            selectedCard = {selectedCard}
-                        />
-                        <ScoreBoardSection />
-                    </>
-                :
-                    <>
-                        < CardsSection
-                            selectCard = {setSelectedCard}
-                            selectedCard = {selectedCard}
-                        />
-                    </>
-            }
+            <div className='gamePage_info'>
+                {
+                    !openScoreBoard 
+                    ?
+                        <button className='handleScoreBoard_btn' onClick={handleScoreBoard}>Ver tabla de puntajes</button>
+                    :
+                        null
+                }
+                
+                {
+                    game?.turnplayerID == user?.id
+                    ?
+                        <>
+                            < BtnsSection 
+                                selectedCard = {selectedCard}
+                                selectCard = {setSelectedCard}
+                            />
+                            < CardsSection
+                                selectCard = {setSelectedCard}
+                                selectedCard = {selectedCard}
+                            />
+                        </>
+                    :
+                        <>
+                            < CardsSection
+                                selectCard = {setSelectedCard}
+                                selectedCard = {selectedCard}
+                            />
+                        </>
+                }
+                <ScoreBoardSection 
+                    openScoreBoard = {openScoreBoard}
+                    setopenScoreBoard = {setopenScoreBoard}
+                />
+            </div>
         </>
     )
 }
