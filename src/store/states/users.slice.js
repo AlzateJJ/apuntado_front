@@ -45,14 +45,24 @@ export const updateUserThunk = (data, id) => async (dispatch) => {
     .catch(err => console.log(err))
 }
 
-export const getLoggedUserThunk = () => (dispatch) => {
+export const getLoggedUserThunk = () => async (dispatch) => {
     // console.log('entré a getLoggedUserThunk')
     const url = 'http://localhost:8080'
     // axios.get(`${url}/users/me`)
-    axios.get(`${url}/users/me`, getConfigToken())
+    await axios.get(`${url}/users/me`, getConfigToken())
     .then(res => {
         // console.log(res.data)
         dispatch(setUser(res.data));
+    })
+    .catch(err => console.log(err))
+}
+
+export const setUserCards = (data, id) => async (dispatch) => {
+    const url = 'http://localhost:8080'
+    await axios.post(`${url}/users/cards/${id}`, data, getConfigToken())
+    .then(res => {
+        console.log(res.data)
+        dispatch(setUser(res.data))
     })
     .catch(err => console.log(err))
 }

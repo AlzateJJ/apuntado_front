@@ -10,6 +10,36 @@
     position: relative;
     /* padding-top: 3em; */
 
+    .order_swap-wrapper {
+        position: absolute;
+        bottom: 0px;
+        left: 20px;
+        display: flex;
+        gap: 1em;
+        /* height: 20px; */
+        
+        .alter_cards-btn {
+            padding: 0.5em 1.2em;
+            border-radius: 0.5em;
+            border: none;
+            transition: transform 0.2s ease;
+            text-align: center;
+            font-weight: 600;
+
+            &:hover {
+                transform: scale(1.1);
+            }
+        }
+
+        .order_cards-btn {
+            background-color: aquamarine;
+        }
+        
+        .swap_cards-btn {
+            background-color: rgb(116, 187, 50);
+        }
+    }
+
     .end_game-btns {
         display: flex;
         gap: 1em;

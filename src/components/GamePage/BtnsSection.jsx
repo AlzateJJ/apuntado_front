@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import './styles/BtnsSection.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { getLoggedUserThunk, updateUserThunk } from '../../store/states/users.slice'
+import { getLoggedUserThunk, setUserCards, updateUserThunk } from '../../store/states/users.slice'
 import { serveCardsThunk, updateGameThunk } from '../../store/states/games.slice'
 import { updateCardThunk } from '../../store/states/cards.slice'
 import { createRoundThunk, getRoundsThunk, updateRoundThunk } from '../../store/states/rounds.slice'
 
-const BtnsSection = ( { selectedCard, selectCard } ) => {
+const BtnsSection = ( { selectedCard, selectCard, setCardsOrder } ) => {
 
     const dispatch = useDispatch()
     const user = useSelector(store => store.user)
@@ -55,6 +55,7 @@ const BtnsSection = ( { selectedCard, selectCard } ) => {
 
         // 1. se busca en el deck una carta random que tenga state 1
         const retrieveRandomDeckCard = (deck) => {
+            console.log(deck)
             const availableCards = deck.filter(card => card.state === 1 && !card.userId);
             console.log(availableCards)
             console.log(availableCards.length)
@@ -68,7 +69,7 @@ const BtnsSection = ( { selectedCard, selectCard } ) => {
             return availableCards[randomIndex];
         }
 
-        const card = retrieveRandomDeckCard(cards)
+        const card = retrieveRandomDeckCard(cards || game?.deck?.cards)
         // 2. se le actualiza el estado a 2 y se le asigna al jugador
         dispatch(updateCardThunk({ ...card, state: 2, userId: user.id}, card.id))
         // 3. se quitan datos de discarded_card y se actualiza esa carta con estado 4 y sin userId
@@ -119,79 +120,103 @@ const BtnsSection = ( { selectedCard, selectCard } ) => {
         selectCard(false)
     }
 
+    const handleOrderCards = (e) => {
+        e.preventDefault()
+        // const cardsIndexs = user.cards.map(card => card.id)
+        // console.log(cardsIndexs)
+
+        const orderedCardsByIndexs = [ ...user.cards].sort((a, b) => a.id - b.id)
+        console.log(orderedCardsByIndexs)
+
+        const cardsRanksFiltered = orderedCardsByIndexs.sort((a, b) => (+(a.rank)) - (+(b.rank)))
+        console.log(cardsRanksFiltered)
+
+        const cardsFilteredIds = cardsRanksFiltered.map(card => card.id)
+
+        setCardsOrder(cardsFilteredIds)
+        // dispatch(setUserCards(orderedCardsIndexs, user.id))
+        selectCard(false)
+    }
+
+    const handleSwapCards = (e) => {
+        e.preventDefault()
+    }
     // console.log(selectedCard)
     return (
+        
         <section className='game_btns-section'>
+            <>
+            <article className='order_swap-wrapper'>
+                <button className='game_btn order_cards-btn alter_cards-btn' onClick={handleOrderCards}>Ordenar Cartas</button>
+                <button className='game_btn swap_cards-btn alter_cards-btn' onClick={handleSwapCards}>Intercambiar Cartas</button>
+            </article>
             {
-                user?.cards?.length === 10
-                ?
-                    <article className='end_game-btns'>
-                        <button className="end_game_btn tocar_btn" onClick={handleTocar}>Tocar</button>
-                        <button className="end_game_btn bajarse_btn" onClick={handleBajarse}>Bajarse</button>
-                    </article>
-                :
-                    null
-            }
-
-            {
-                user?.cards.length === 10
-                ?
-                    <article className='card_btns'>
-                        
-                        {
-                            game?.discarded_card.card && !cartaEscogida
-                            ?
-                                <>
-                                <div className='arrastrar-div'>
-                                    <h4 className='arrastrar-title'>Arrastrar del mazo</h4>
-                                    <div className="arrastrar-img_container" onClick={handleArrastrar}>
-                                        <img src='../../../deck.png' className='arrastrar_img' alt="imagen del mazo"></img>
-                                    </div>
-                                </div>
-                                <div className='carta_tirada-div'>
-                                    {
-                                        game?.users?.length > 0
-                                        ?
-                                            <h4 className='carta_tirada-title'>{`Coger carta tirada por 
-                                                ${(game.users.find(p => p.id === game.discarded_card.playerId)).firstName}
-                                                ${(game.users.find(p => p.id === game.discarded_card.playerId)).lastName}
-                                            `}</h4>
-                                            :
-                                            <h4 className='carta_tirada-title'>{`Coger carta tirada`}</h4>
-                                    }
-                                    <article className='card' onClick={handleCogerCartaTirada}>
-                                        <header className='card_header'>
-                                            <h2 className={`card_rank ${(game.discarded_card.card.suit === 'corazón' || game.discarded_card.card.suit === 'diamante') && 'red_suit'}`}>{`${game.discarded_card.card.rank}`}</h2>
-                                        </header>
-                                        <div className='card_body'>
-                                            <div className='img_container'>
-                                                <img src={`../../../${game.discarded_card.card.suit}.png`} className='card_img' alt="imagen de la carta"></img>
-                                            </div>
-                                        </div>
-                                        <footer className='card_footer'>
-                                            <h2 className={`card_rank ${(game.discarded_card.card.suit === 'corazón' || game.discarded_card.card.suit === 'diamante') && 'red_suit'}`}>{`${game.discarded_card.card.rank}`}</h2>
-                                        </footer>
+                game?.turnplayerID == user?.id
+                    ?
+                        (
+                            user?.cards?.length === 10
+                                ?
+                                    <>
+                                    <article className='end_game-btns'>
+                                        <button className="end_game_btn tocar_btn" onClick={handleTocar}>Tocar</button>
+                                        <button className="end_game_btn bajarse_btn" onClick={handleBajarse}>Bajarse</button>
                                     </article>
-                                </div>
-                                </>
-                            :
-                                null
-                        }
-                    </article>
-                :
-                    null
+                                    <article className='card_btns'>
+                                        {
+                                            game?.discarded_card.card && !cartaEscogida
+                                            ?
+                                                <>
+                                                <div className='arrastrar-div'>
+                                                    <h4 className='arrastrar-title'>Arrastrar del mazo</h4>
+                                                    <div className="arrastrar-img_container" onClick={handleArrastrar}>
+                                                        <img src='../../../deck.png' className='arrastrar_img' alt="imagen del mazo"></img>
+                                                    </div>
+                                                </div>
+                                                <div className='carta_tirada-div'>
+                                                    {
+                                                        game?.users?.length > 0
+                                                        ?
+                                                            <h4 className='carta_tirada-title'>{`Coger carta tirada por 
+                                                                ${(game.users.find(p => p.id === game.discarded_card.playerId)).firstName}
+                                                                ${(game.users.find(p => p.id === game.discarded_card.playerId)).lastName}
+                                                            `}</h4>
+                                                            :
+                                                            <h4 className='carta_tirada-title'>{`Coger carta tirada`}</h4>
+                                                    }
+                                                    <article className='card' onClick={handleCogerCartaTirada}>
+                                                        <header className='card_header'>
+                                                            <h2 className={`card_rank ${(game.discarded_card.card.suit === 'corazón' || game.discarded_card.card.suit === 'diamante') && 'red_suit'}`}>{`${game.discarded_card.card.rank}`}</h2>
+                                                        </header>
+                                                        <div className='card_body'>
+                                                            <div className='img_container'>
+                                                                <img src={`../../../${game.discarded_card.card.suit}.png`} className='card_img' alt="imagen de la carta"></img>
+                                                            </div>
+                                                        </div>
+                                                        <footer className='card_footer'>
+                                                            <h2 className={`card_rank ${(game.discarded_card.card.suit === 'corazón' || game.discarded_card.card.suit === 'diamante') && 'red_suit'}`}>{`${game.discarded_card.card.rank}`}</h2>
+                                                        </footer>
+                                                    </article>
+                                                </div>
+                                                </>
+                                            :
+                                                null
+                                        }
+                                    </article>
+                                    </>
+                                :
+                                    (
+                                        selectedCard &&
+                                        <article className='tirar_btn-div'>
+                                            <button className="game_btn tirar_btn" onClick={handleTirarCarta}>Tirar</button>
+                                        </article>
+                                    )
+                            
+                        )
+                    :
+                        null
             }
-
-            {
-                selectedCard && user.cards.length === 11
-                ?
-                    <article className='tirar_btn-div'>
-                        <button className="game_btn tirar_btn" onClick={handleTirarCarta}>Tirar</button>
-                    </article>
-                :
-                    null
-            }
-        </section>
+            </>
+            </section>
     )
 }
 

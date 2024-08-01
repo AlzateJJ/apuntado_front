@@ -15,7 +15,8 @@ const GamePage = () => {
     const user = useSelector(store => store.user)
     // console.log(games)
     const [ selectedCard, setSelectedCard ] = useState('')
-    const [openScoreBoard, setopenScoreBoard] = useState(false)
+    const [ openScoreBoard, setopenScoreBoard ] = useState(false)
+    const [ cardsOrder, setCardsOrder] = useState([])
 
     // console.log(user)
     useEffect(() => {
@@ -23,12 +24,13 @@ const GamePage = () => {
             dispatch(getLoggedUserThunk());
             dispatch(getGamesThunk()); // PENDIENTE: por qué es necesario hacer el get?
             dispatch(getCardsThunk(user?.gameId))
-        }, 3000);
-
+        }, 5000);
+        
         return () => clearInterval(intervalId); // Limpia el intervalo cuando el componente se desmonta
     }, []); // Solo se ejecuta una vez al montar, pero mantiene el intervalo
-
+    
     const game = games?.find(g => g.id == user?.gameId) // se encuentra el juego
+    // console.log(game?.users?.find(u.id === ))
 
     const handleScoreBoard = e => {
         e.preventDefault()
@@ -47,8 +49,8 @@ const GamePage = () => {
                             game?.users?.length > 0
                             ?
                                 <h3 className='gamePage_title'>{`Todavía no es tu turno, está jugando 
-                                    ${(game?.users.find(p => p.id === game?.turnplayerID)).firstName} 
-                                    ${(game?.users.find(p => p.id === game?.turnplayerID)).lastName}`}
+                                    ${(game?.users?.find(p => p.id === game?.turnplayerID))?.firstName} 
+                                    ${(game?.users?.find(p => p.id === game?.turnplayerID))?.lastName}`}
                                 </h3>
                             :
                                 <h3 className='gamePage_title'>Todavía no es tu turno</h3>
@@ -63,28 +65,18 @@ const GamePage = () => {
                     :
                         null
                 }
+
+                < BtnsSection 
+                    selectedCard = {selectedCard}
+                    selectCard = {setSelectedCard}
+                    setCardsOrder = {setCardsOrder}
+                />
                 
-                {
-                    game?.turnplayerID == user?.id
-                    ?
-                        <>
-                            < BtnsSection 
-                                selectedCard = {selectedCard}
-                                selectCard = {setSelectedCard}
-                            />
-                            < CardsSection
-                                selectCard = {setSelectedCard}
-                                selectedCard = {selectedCard}
-                            />
-                        </>
-                    :
-                        <>
-                            < CardsSection
-                                selectCard = {setSelectedCard}
-                                selectedCard = {selectedCard}
-                            />
-                        </>
-                }
+                <CardsSection
+                    selectCard = {setSelectedCard}
+                    selectedCard = {selectedCard}
+                    cardsOrder = {cardsOrder}
+                />
                 <ScoreBoardSection 
                     openScoreBoard = {openScoreBoard}
                     setopenScoreBoard = {setopenScoreBoard}
