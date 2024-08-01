@@ -72,10 +72,11 @@ export const deleteGameThunk = id => async (dispatch) => {
         .catch(err => console.log(err))
 }
 
-export const serveCardsThunk = (id) => async (dispatch) => {
+export const serveCardsThunk = (id, userId) => async (dispatch) => {
     console.log(id)
+    console.log(userId)
     const url = 'http://localhost:8080'
-    await axios.post(`${url}/serve/games/${id}`) // , getConfigToken()
+    await axios.post(`${url}/serve/games/${id}`, userId) // , getConfigToken()
         .then(res => {
             console.log(res.data)
             dispatch(updateGame(res.data))

@@ -44,7 +44,7 @@ const GamePage = () => {
                         <h3 className='gamePage_title'>{`${user?.firstName} ${user?.lastName}, es tu turno!`}</h3>
                     :
                         (
-                            game?.users
+                            game?.users?.length > 0
                             ?
                                 <h3 className='gamePage_title'>{`Todavía no es tu turno, está jugando 
                                     ${(game?.users.find(p => p.id === game?.turnplayerID)).firstName} 

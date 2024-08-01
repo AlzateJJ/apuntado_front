@@ -38,11 +38,14 @@ const AvailableGames = () => {
     }
     // PENDIENTE: cuando todos los juegos que hay están empezados, se muestra el string que no es: "Juegos a los que te puedes unir"
     // console.log(games)
+    // <button className="create_game-btn" onClick={openForm}>Crear Juego</button>
     return (
         <section className='availableGames'>
             <div className="title_btn-wrapper">
-                <h2 className='games_title'>{games?.length > 0 ? 'Juegos a los que te puedes unir' : 'No hay juegos disponibles todavía, crea uno!'}</h2>
-                <button className="create_game-btn" onClick={openForm}>Crear Juego</button>
+                <h2 className='games_title'>{(games?.filter(g => g.started === false)).length > 0 ? 'Juegos a los que te puedes unir' : 'No hay juegos disponibles todavía, crea uno!'}</h2>
+                <button onClick={openForm} className="create_game-btn">
+                    <p>Crear Juego</p>
+                </button>
             </div>
 
             <CreateGameForm 

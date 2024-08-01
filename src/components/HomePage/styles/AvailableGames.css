@@ -9,6 +9,7 @@
         align-items: center;
         justify-content: space-around;
         margin-bottom: 1em;
+        z-index: -30;
 
         .games_title {
             color: rgb(68, 128, 0);
@@ -16,20 +17,71 @@
         }
 
         .create_game-btn {
-            font-weight: 700;
+            all: unset;
+            display: flex;
+            align-items: center;
+            position: relative;
             padding: 0.6em 1em;
-            border-radius: 0.4em;
-            border: none;
-            background-color: orange;
-            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.897); /* Sombra negra sutil */
+            margin: 0;
+            /* border: rgb(41, 0, 37) solid 1px; */
+            border-radius: 0.25em;
+            color: rgb(255, 255, 255);
+            font-size: 1.1em;
+            /* font-weight: 600; */
+            cursor: pointer;
+            overflow: hidden;
+            transition: border 300ms, color 300ms;
+            user-select: none;
+        
+            p {
+                /* z-index: 1; */
+                margin: 0;
+            }
         
             &:hover {
-                transform: scale(1.1);
-                box-shadow: 4px 4px 10px rgb(0, 0, 0); /* Sombra un poco más pronunciada al hacer hover */
-                background-color: rgb(212, 71, 5);
+                color: rgb(255, 255, 255);
+            }
+        
+            &:active {
+                border-color: teal;
+            }
+        
+            &::after, &::before {
+                content: "";
+                position: absolute;
+                width: 9em;
+                aspect-ratio: 1;
+                background: rgb(137, 0, 250);
+                opacity: 50%;
+                border-radius: 50%;
+                transition: transform 500ms, background 300ms;
+            }
+        
+            &::before {
+                left: 0;
+                transform: translateX(-8em);
+            }
+        
+            &::after {
+                right: 0;
+                transform: translateX(8em);
+            }
+        
+            &:hover::before {
+                transform: translateX(-1em);
+            }
+        
+            &:hover::after {
+                transform: translateX(1em);
+            }
+        
+            &:active::before,
+            &:active::after {
+                background: teal;
             }
         }
+        
+
     }
 
     .games_wrapper {

@@ -16,14 +16,14 @@ const ScoreBoardSection = ( { openScoreBoard, setopenScoreBoard } ) => {
     return (
         <div className={`scoreBoard ${!openScoreBoard && 'close_scoreBoard'}`}>
             <header className='scoreBoard-header'>
-                <h2 className='scoreBoard-title'>Tabla de puntajes</h2>
+                <h2 className='scoreBoard-title'>{`Tabla de puntajes, ronda ${game?.rounds?.length} en curso`}</h2>
             </header>
             <section className='scoreBoard-body'>
                 <div className='players_wrapper'>
                     {
                         game?.users?.map(
                             player => (
-                                <article className='scoreBoard-player'>
+                                <article key={`${player.id}`} className='scoreBoard-player'>
                                     <div className='scoreBoard-player_name_div'>
                                         <h3 className='scoreBoard-player_name'>{`${player.firstName} ${player.lastName}`}</h3>
                                     </div>

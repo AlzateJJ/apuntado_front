@@ -1,20 +1,21 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './styles/BtnsSection.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { getLoggedUserThunk, updateUserThunk } from '../../store/states/users.slice'
-import { updateGameThunk } from '../../store/states/games.slice'
+import { serveCardsThunk, updateGameThunk } from '../../store/states/games.slice'
 import { updateCardThunk } from '../../store/states/cards.slice'
+import { createRoundThunk, getRoundsThunk, updateRoundThunk } from '../../store/states/rounds.slice'
 
 const BtnsSection = ( { selectedCard, selectCard } ) => {
 
     const dispatch = useDispatch()
     const user = useSelector(store => store.user)
-    const games = useSelector(store => store.games)
     const cards = useSelector(store => store.cards)
-    // console.log(cards)
+    const games = useSelector(store => store.games)
 
     const game = games?.find(g => g.id == user?.gameId) // se encuentra el juego
-    // console.log(game)
+    const rounds = game?.rounds // se encuentran las rondas del juego
+    // console.log(rounds)
 
     const [cartaEscogida, setCartaEscogida] = useState(false)
 
@@ -24,12 +25,29 @@ const BtnsSection = ( { selectedCard, selectCard } ) => {
 
     const handleBajarse = (e) => {
         e.preventDefault()
-        // verificar que el jugador pueda bajarse
-        // terminar la ronda
-        // actualizar los puntos de todos los jugadores
-        // sacar jugadores si es necesario, declarar ganador si es necesario
-        // empezra una nueva ronda con los jugadores restantes
-        // volver a ejecutar serveCards, pero esta vez, el que recibe 11 es el ganador, no el primero
+        // 1. verificar que el jugador pueda bajarse (PENDIENTE)
+
+        // 2. terminar el round
+        const findLastRound = (game) => {
+            //  la función reduce en JavaScript es un método de los arrays que se utiliza para iterar 
+            // sobre un array y acumular un solo valor basado en un callback proporcionado
+            if (!game || !game.rounds) {
+                return -1;
+            }
+            const { rounds } = game
+            const lastRoundId = rounds.reduce((max, round) => (round.id > max ? round.id : max), 0)
+            return rounds.find(r => r.id === lastRoundId)
+        }
+
+        const lastRound = findLastRound(game)
+        console.log(lastRound)
+        dispatch(updateRoundThunk({ ...lastRound, finished: true, winner_id: user.id}, lastRound.id))
+        // 3. actualizar los puntos de todos los jugadores (PENDIENTE)
+        // 4. sacar jugadores si es necesario, declarar ganador si es necesario (PENDIENTE)
+        // 5. empezra una nueva ronda con los jugadores restantes
+        dispatch(createRoundThunk({ gameId: lastRound.gameId }))
+        // 6. volver a ejecutar serveCards, pero esta vez, el que recibe 11 es el ganador, no el primero
+        dispatch(serveCardsThunk(game.id, user.id))
     }
 
     const handleArrastrar = (e) => {
@@ -105,7 +123,7 @@ const BtnsSection = ( { selectedCard, selectCard } ) => {
     return (
         <section className='game_btns-section'>
             {
-                user?.cards.length === 10
+                user?.cards?.length === 10
                 ?
                     <article className='end_game-btns'>
                         <button className="end_game_btn tocar_btn" onClick={handleTocar}>Tocar</button>
@@ -132,7 +150,7 @@ const BtnsSection = ( { selectedCard, selectCard } ) => {
                                 </div>
                                 <div className='carta_tirada-div'>
                                     {
-                                        game?.users
+                                        game?.users?.length > 0
                                         ?
                                             <h4 className='carta_tirada-title'>{`Coger carta tirada por 
                                                 ${(game.users.find(p => p.id === game.discarded_card.playerId)).firstName}

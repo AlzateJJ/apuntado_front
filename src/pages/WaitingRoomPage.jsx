@@ -66,6 +66,7 @@ const WaitingRoomPage = () => {
     }
     // console.log(game)
     // console.log(user)
+    // 
     return (
         <>
             <section className='waiting_room-header'>
@@ -75,8 +76,10 @@ const WaitingRoomPage = () => {
                 <article className='btns-wrapper'>
                     {
                         user?.id == game?.adminUserID
-                        ?   <button onClick={handleStartGame} className='start_game-btn w_room_header-btn'>Iniciar Juego</button>
-                        :   (game?.started
+                        ?   
+                            <button onClick={handleStartGame} className='start_game-btn w_room_header-btn'>Iniciar Juego</button>
+                        :   
+                            (game?.started
                             ?   <button onClick={handleJoinGame} className='join_game-btn w_room_header-btn'>Entrar al Juego!</button>
                             :   (
                                     game?.users
