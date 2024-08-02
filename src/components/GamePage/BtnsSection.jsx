@@ -5,6 +5,8 @@ import { getLoggedUserThunk, setUserCards, updateUserThunk } from '../../store/s
 import { serveCardsThunk, updateGameThunk } from '../../store/states/games.slice'
 import { setCards, updateCardThunk } from '../../store/states/cards.slice'
 import { createRoundThunk, getRoundsThunk, updateRoundThunk } from '../../store/states/rounds.slice'
+import getConfigToken from '../../services/getConfigToken';
+import axios from 'axios'
 
 const BtnsSection = ( { selectedCard, selectCard, setCardsOrder, cardsOrder } ) => {
 
@@ -21,9 +23,13 @@ const BtnsSection = ( { selectedCard, selectCard, setCardsOrder, cardsOrder } ) 
         e.preventDefault()
     }
 
-    const handleBajarse = (e) => {
+    const handleBajarse = async (e) => {
         e.preventDefault()
         // 1. verificar que el jugador pueda bajarse (PENDIENTE)
+        const verifyWin = await axios.post('http://localhost:8080/win/games', getConfigToken())
+            .then(res => {console.log(res)})
+            .catch(err => console.log(err))
+        if (verifyWin.status == 400) return console.log(verifyWin)
 
         // 2. terminar el round
         const findLastRound = (game) => {
@@ -42,10 +48,11 @@ const BtnsSection = ( { selectedCard, selectCard, setCardsOrder, cardsOrder } ) 
         dispatch(updateRoundThunk({ ...lastRound, finished: true, winner_id: user.id}, lastRound.id))
         // 3. actualizar los puntos de todos los jugadores (PENDIENTE)
         // 4. sacar jugadores si es necesario, declarar ganador si es necesario (PENDIENTE)
-        // 5. empezra una nueva ronda con los jugadores restantes
+        // 5. empezar una nueva ronda con los jugadores restantes
         dispatch(createRoundThunk({ gameId: lastRound.gameId }))
         // 6. volver a ejecutar serveCards, pero esta vez, el que recibe 11 es el ganador, no el primero
         dispatch(serveCardsThunk(game.id, user.id))
+        // 7. actualizar estados locales
         setCardsOrder([])
         setCartaEscogida(true)
     }
