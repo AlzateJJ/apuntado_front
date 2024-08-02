@@ -3,19 +3,17 @@ import './styles/BtnsSection.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { getLoggedUserThunk, setUserCards, updateUserThunk } from '../../store/states/users.slice'
 import { serveCardsThunk, updateGameThunk } from '../../store/states/games.slice'
-import { updateCardThunk } from '../../store/states/cards.slice'
+import { setCards, updateCardThunk } from '../../store/states/cards.slice'
 import { createRoundThunk, getRoundsThunk, updateRoundThunk } from '../../store/states/rounds.slice'
 
-const BtnsSection = ( { selectedCard, selectCard, setCardsOrder } ) => {
+const BtnsSection = ( { selectedCard, selectCard, setCardsOrder, cardsOrder } ) => {
 
     const dispatch = useDispatch()
     const user = useSelector(store => store.user)
     const cards = useSelector(store => store.cards)
     const games = useSelector(store => store.games)
-
     const game = games?.find(g => g.id == user?.gameId) // se encuentra el juego
-    const rounds = game?.rounds // se encuentran las rondas del juego
-    // console.log(rounds)
+
 
     const [cartaEscogida, setCartaEscogida] = useState(false)
 
@@ -48,6 +46,8 @@ const BtnsSection = ( { selectedCard, selectCard, setCardsOrder } ) => {
         dispatch(createRoundThunk({ gameId: lastRound.gameId }))
         // 6. volver a ejecutar serveCards, pero esta vez, el que recibe 11 es el ganador, no el primero
         dispatch(serveCardsThunk(game.id, user.id))
+        setCardsOrder([])
+        setCartaEscogida(true)
     }
 
     const handleArrastrar = (e) => {
@@ -76,6 +76,10 @@ const BtnsSection = ( { selectedCard, selectCard, setCardsOrder } ) => {
         dispatch(updateCardThunk({ ...game.discarded_card.card, userId: null, state: 4}, game.discarded_card.card.id))
         // dispatch(updateGameThunk({ ...game, discarded_card: {playerId: null, card: null} }, game.id)) // PENDIENTE: puede que no sea necesario porque cuando el jugador tira la carta, actualiza los datos de discarded_card
         setCartaEscogida(true)
+        if (cardsOrder.length > 0) {
+            console.log(cardsOrder)
+            setCardsOrder([ card.id, ...cardsOrder ])
+        }
     }
 
     const handleCogerCartaTirada = (e) => {
@@ -86,6 +90,10 @@ const BtnsSection = ( { selectedCard, selectCard, setCardsOrder } ) => {
         dispatch(updateCardThunk({ ...game.discarded_card.card, userId: user.id, state: 2}, game.discarded_card.card.id))
         setCartaEscogida(true)
         selectCard('')
+        if (cardsOrder.length > 0) {
+            console.log(cardsOrder)
+            setCardsOrder([ game.discarded_card.card.id, ...cardsOrder ])
+        }
     }
 
     const handleTirarCarta = (e) => {
@@ -118,6 +126,7 @@ const BtnsSection = ( { selectedCard, selectCard, setCardsOrder } ) => {
             , game.id
         ))
         selectCard(false)
+        setCartaEscogida(false)
     }
 
     const handleOrderCards = (e) => {
@@ -142,6 +151,10 @@ const BtnsSection = ( { selectedCard, selectCard, setCardsOrder } ) => {
         e.preventDefault()
     }
     // console.log(selectedCard)
+    // console.log(user)
+    // console.log(game?.turnplayerID == user?.id)
+    // console.log(game?.discarded_card.card && !cartaEscogida)
+    // console.log(cartaEscogida)
     return (
         
         <section className='game_btns-section'>
@@ -177,15 +190,27 @@ const BtnsSection = ( { selectedCard, selectCard, setCardsOrder } ) => {
                                                         game?.users?.length > 0
                                                         ?
                                                             <h4 className='carta_tirada-title'>{`Coger carta tirada por 
-                                                                ${(game.users.find(p => p.id === game.discarded_card.playerId)).firstName}
-                                                                ${(game.users.find(p => p.id === game.discarded_card.playerId)).lastName}
+                                                                ${((game.users.find(p => p.id == game.discarded_card.playerId))?.firstName) ?
+                                                                    ((game.users.find(p => p.id == game.discarded_card.playerId))?.firstName) : null
+                                                                }
+                                                                ${((game.users.find(p => p.id == game.discarded_card.playerId))?.lastName) ?
+                                                                    ((game.users.find(p => p.id == game.discarded_card.playerId))?.lastName) : null
+                                                                }
                                                             `}</h4>
                                                             :
                                                             <h4 className='carta_tirada-title'>{`Coger carta tirada`}</h4>
                                                     }
                                                     <article className='card' onClick={handleCogerCartaTirada}>
                                                         <header className='card_header'>
-                                                            <h2 className={`card_rank ${(game.discarded_card.card.suit === 'corazón' || game.discarded_card.card.suit === 'diamante') && 'red_suit'}`}>{`${game.discarded_card.card.rank}`}</h2>
+                                                            <h2 className={`card_rank ${(game.discarded_card.card.suit === 'corazón' || game.discarded_card.card.suit === 'diamante') && 'red_suit'}`}>
+                                                                {`${game.discarded_card.card.rank == 11 ? "J" : 
+                                                                    (game.discarded_card.card.rank == 12 ? "Q" :
+                                                                        (game.discarded_card.card.rank == 13 ? "K" :
+                                                                            (game.discarded_card.card.rank == 14 ? "A" : game.discarded_card.card.rank)
+                                                                        )
+                                                                    )
+                                                                }`}
+                                                            </h2>
                                                         </header>
                                                         <div className='card_body'>
                                                             <div className='img_container'>
@@ -193,7 +218,15 @@ const BtnsSection = ( { selectedCard, selectCard, setCardsOrder } ) => {
                                                             </div>
                                                         </div>
                                                         <footer className='card_footer'>
-                                                            <h2 className={`card_rank ${(game.discarded_card.card.suit === 'corazón' || game.discarded_card.card.suit === 'diamante') && 'red_suit'}`}>{`${game.discarded_card.card.rank}`}</h2>
+                                                            <h2 className={`card_rank ${(game.discarded_card.card.suit === 'corazón' || game.discarded_card.card.suit === 'diamante') && 'red_suit'}`}>
+                                                                {`${game.discarded_card.card.rank == 11 ? "J" : 
+                                                                    (game.discarded_card.card.rank == 12 ? "Q" :
+                                                                        (game.discarded_card.card.rank == 13 ? "K" :
+                                                                            (game.discarded_card.card.rank == 14 ? "A" : game.discarded_card.card.rank)
+                                                                        )
+                                                                    )
+                                                                }`}
+                                                            </h2>
                                                         </footer>
                                                     </article>
                                                 </div>

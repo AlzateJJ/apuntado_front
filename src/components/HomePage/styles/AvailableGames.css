@@ -23,23 +23,29 @@
             position: relative;
             padding: 0.6em 1em;
             margin: 0;
-            /* border: rgb(41, 0, 37) solid 1px; */
+            /* border: 2px solid black; */
             border-radius: 0.25em;
-            color: rgb(255, 255, 255);
+            /* color: rgb(255, 255, 255); */
             font-size: 1.1em;
             /* font-weight: 600; */
             cursor: pointer;
             overflow: hidden;
-            transition: border 300ms, color 300ms;
+            transition: border 300ms, color 300ms, transform 0.2s ease;
             user-select: none;
-        
+            background-color: rgb(17, 16, 16);
+            box-shadow: 0 4px 8px rgb(0, 0, 0);
+
             p {
-                /* z-index: 1; */
+                z-index: 1;
                 margin: 0;
             }
         
             &:hover {
-                color: rgb(255, 255, 255);
+                transform: scale(1.1);
+                /* background-color: rgb(24, 22, 22); */
+                border: 2px solid rgb(183, 0, 255);
+                box-shadow: 0 4px 8px rgb(228, 23, 255);
+
             }
         
             &:active {
@@ -51,7 +57,7 @@
                 position: absolute;
                 width: 9em;
                 aspect-ratio: 1;
-                background: rgb(137, 0, 250);
+                background: rgb(69, 0, 124);
                 opacity: 50%;
                 border-radius: 50%;
                 transition: transform 500ms, background 300ms;
@@ -77,7 +83,7 @@
         
             &:active::before,
             &:active::after {
-                background: teal;
+                background: rgb(128, 62, 0);
             }
         }
         

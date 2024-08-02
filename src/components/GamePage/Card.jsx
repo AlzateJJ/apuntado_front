@@ -14,7 +14,15 @@ const Card = ( { card, selectCard, selectedCard } ) => {
     return (
         <article className={`card ${card.id === selectedCard.id && 'selectedCard'}`} onClick={handleClick}>
             <header className='card_header'>
-                <h2 className={`card_rank ${(card.suit === 'corazón' || card.suit === 'diamante') && 'red_suit'}`}>{`${card.rank}`}</h2>
+                <h2 className={`card_rank ${(card.suit === 'corazón' || card.suit === 'diamante') && 'red_suit'}`}>
+                    {`${card.rank == 11 ? "J" : 
+                        (card.rank == 12 ? "Q" :
+                            (card.rank == 13 ? "K" :
+                                (card.rank == 14 ? "A" : card.rank)
+                            )
+                        )
+                    }`}
+                </h2>
             </header>
             <div className='card_body'>
                 <div className='img_container'>
@@ -22,7 +30,15 @@ const Card = ( { card, selectCard, selectedCard } ) => {
                 </div>
             </div>
             <footer className='card_footer'>
-                <h2 className={`card_rank ${(card.suit === 'corazón' || card.suit === 'diamante') && 'red_suit'}`}>{`${card.rank}`}</h2>
+                <h2 className={`card_rank ${(card.suit === 'corazón' || card.suit === 'diamante') && 'red_suit'}`}>
+                {`${card.rank == 11 ? "J" : 
+                        (card.rank == 12 ? "Q" :
+                            (card.rank == 13 ? "K" :
+                                (card.rank == 14 ? "A" : card.rank)
+                            )
+                        )
+                    }`}
+                </h2>
             </footer>
         </article>
     )

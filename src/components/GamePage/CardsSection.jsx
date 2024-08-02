@@ -4,11 +4,51 @@ import { getLoggedUserThunk } from '../../store/states/users.slice'
 import Card from './Card'
 import './styles/CardsSection.css'
 
-const CardsSection = ({ selectCard, selectedCard, cardsOrder }) => {
+const CardsSection = ({ selectCard, selectedCard, cardsOrder, setCardsOrder }) => {
     const user = useSelector(store => store.user);
+    const games = useSelector(store => store.games)
+    const game = games?.find(g => g.id == user?.gameId) // se encuentra el juego
 
     // console.log(user)
     // console.log(cardsOrder)
+
+    // const findPickedCard = () => {
+    //     user?.cards?.map(card => {
+    //         if (!cardsOrder.includes(card.id)) {
+    //             return card
+    //         }
+    //     })
+    // }
+    
+    // let pickedCard = ''
+    // if ((user?.cards?.length - 1) === (cardsOrder.length)) {
+    //     pickedCard = findPickedCard()
+    // }
+
+    // {
+    //     pickedCard
+    //     ?
+    //         <Card 
+    //             card={pickedCard}
+    //             key={pickedCard.id}
+    //             selectCard={selectCard}
+    //             selectedCard={selectedCard}
+    //         />
+    //     :
+    //         null
+    // }
+
+    const handleDeleteCardsOrder = () => {
+        const existingCards = (user?.cards?.map(card => 
+            (cardsOrder.find(indexOrder => indexOrder == card.id)))).filter(c => c != undefined)
+            // console.log(existingCards.length)
+            // console.log(existingCards)
+            // console.log(cardsOrder)
+            if (existingCards.length < 7 ) {
+                console.log('hollssa')
+            setCardsOrder([])
+        }
+    }
 
     return (
         <section className='cards_section'>
@@ -17,7 +57,7 @@ const CardsSection = ({ selectCard, selectedCard, cardsOrder }) => {
                 ?
                     (cardsOrder.map(order => {
                         const nextCard = user?.cards?.find(card => card.id == order);
-                        if (!nextCard) return null;
+                            if (!nextCard) return handleDeleteCardsOrder();
                         
                         return (
                             <Card 
@@ -30,7 +70,7 @@ const CardsSection = ({ selectCard, selectedCard, cardsOrder }) => {
                     }))
                 :
                     (
-                        user.cards.map(card => (
+                        user?.cards?.map(card => (
                             <Card 
                                 card={card}
                                 key={card.id}
@@ -40,6 +80,7 @@ const CardsSection = ({ selectCard, selectedCard, cardsOrder }) => {
                         ))
                     )
             }
+            
         </section>
     );
 }
