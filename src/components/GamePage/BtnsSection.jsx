@@ -26,10 +26,10 @@ const BtnsSection = ( { selectedCard, selectCard, setCardsOrder, cardsOrder } ) 
     const handleBajarse = async (e) => {
         e.preventDefault()
         // 1. verificar que el jugador pueda bajarse (PENDIENTE)
-        const verifyWin = await axios.post('http://localhost:8080/win/games', getConfigToken())
-            .then(res => {console.log(res)})
-            .catch(err => console.log(err))
-        if (verifyWin.status == 400) return console.log(verifyWin)
+        // const verifyWin = await axios.post('http://localhost:8080/win/games', getConfigToken())
+        //     .then(res => {console.log(res)})
+        //     .catch(err => console.log(err))
+        // if (verifyWin.status == 400) return console.log(verifyWin)
 
         // 2. terminar el round
         const findLastRound = (game) => {
@@ -198,10 +198,10 @@ const BtnsSection = ( { selectedCard, selectCard, setCardsOrder, cardsOrder } ) 
                                                         ?
                                                             <h4 className='carta_tirada-title'>{`Coger carta tirada por 
                                                                 ${((game.users.find(p => p.id == game.discarded_card.playerId))?.firstName) ?
-                                                                    ((game.users.find(p => p.id == game.discarded_card.playerId))?.firstName) : null
+                                                                    ((game.users.find(p => p.id == game.discarded_card.playerId))?.firstName) : 'el anterior'
                                                                 }
                                                                 ${((game.users.find(p => p.id == game.discarded_card.playerId))?.lastName) ?
-                                                                    ((game.users.find(p => p.id == game.discarded_card.playerId))?.lastName) : null
+                                                                    ((game.users.find(p => p.id == game.discarded_card.playerId))?.lastName) : ' jugador'
                                                                 }
                                                             `}</h4>
                                                             :

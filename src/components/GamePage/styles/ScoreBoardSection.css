@@ -77,7 +77,7 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            color: red;
+            color: rgb(184, 84, 2);
         }
     }
     /* .scoreBoard_close-btn {

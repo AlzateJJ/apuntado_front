@@ -20,13 +20,13 @@ const GamePage = () => {
     const [ openScoreBoard, setopenScoreBoard ] = useState(false)
     const [ cardsOrder, setCardsOrder] = useState([])
 
-    // console.log(user)
+    console.log(user)
     useEffect(() => {
         const intervalId = setInterval(() => {
             dispatch(getLoggedUserThunk());
             dispatch(getGamesThunk()); // PENDIENTE: por qué es necesario hacer el get?
             dispatch(getCardsThunk(user?.gameId))
-        }, 5000);
+        }, 3000);
         
         return () => clearInterval(intervalId); // Limpia el intervalo cuando el componente se desmonta
     }, []); // Solo se ejecuta una vez al montar, pero mantiene el intervalo

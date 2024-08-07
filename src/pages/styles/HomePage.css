@@ -1,5 +1,8 @@
 .home_wrapper {
 
+    position: relative;
+    height: 93vh;
+
     .home_title {
         color: rgb(172, 66, 204);
         text-align: center;
@@ -30,5 +33,27 @@
             }
         }
     }
+
+    .tokens_div {
+
+        position: absolute;
+        bottom: 10px;
+        left: 20px;
+        
+        height: 50px;
+        width: 30px;
+      
+        .tokens_button {
+          display: flex;
+          align-items: center;
+          text-decoration: none;
+          color: #274e07; /* Color de WhatsApp */
+          font-weight: bold;
+      
+          .whatsapp-icon {
+            margin-right: 5px;
+          }
+        }
+      }
 
 }
