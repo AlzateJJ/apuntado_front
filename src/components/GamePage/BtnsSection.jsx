@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import  { useState } from 'react'
 import './styles/BtnsSection.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { getLoggedUserThunk, setUserCards, updateUserThunk } from '../../store/states/users.slice'
+import { getLoggedUserThunk } from '../../store/states/users.slice'
 import { serveCardsThunk, updateGameThunk } from '../../store/states/games.slice'
-import { setCards, updateCardThunk } from '../../store/states/cards.slice'
-import { createRoundThunk, getRoundsThunk, updateRoundThunk } from '../../store/states/rounds.slice'
-import getConfigToken from '../../services/getConfigToken';
-import axios from 'axios'
+import { updateCardThunk } from '../../store/states/cards.slice'
+import { createRoundThunk, updateRoundThunk } from '../../store/states/rounds.slice'
+import PropTypes from 'prop-types';
+
 
 const BtnsSection = ( { selectedCard, selectCard, setCardsOrder, cardsOrder } ) => {
 
@@ -258,6 +258,13 @@ const BtnsSection = ( { selectedCard, selectCard, setCardsOrder, cardsOrder } ) 
             </>
             </section>
     )
+}
+
+BtnsSection.propTypes = {
+    selectedCard: PropTypes.object,
+    selectCard: PropTypes.func.isRequired,
+    setCardsOrder: PropTypes.func.isRequired,
+    cardsOrder: PropTypes.arrayOf(PropTypes.object).isRequired
 }
 
 export default BtnsSection

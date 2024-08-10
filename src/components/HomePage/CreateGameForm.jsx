@@ -1,20 +1,17 @@
 import { useForm } from 'react-hook-form'
 import './styles/CreateGameForm.css'
-import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { createGameThunk } from '../../store/states/games.slice'
-import { getLoggedUserThunk, updateUserThunk } from '../../store/states/users.slice'
+import { updateUserThunk } from '../../store/states/users.slice'
 import { useNavigate } from 'react-router-dom'
 import getConfigToken from '../../services/getConfigToken'
 import { addGame } from '../../store/states/games.slice'
-import { genericRequestThunk } from '../../store/states/app.slice'
 import axios from 'axios'
+import PropTypes from 'prop-types'
 
 const CreateGameForm = ( { formIsOpened, setFormIsOpened } ) => {
     // console.log('entré a CreateGameForm')
 
     const { handleSubmit, register, reset } = useForm()
-    const [gameData, setGameData] = useState('')
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -78,6 +75,11 @@ const CreateGameForm = ( { formIsOpened, setFormIsOpened } ) => {
             </form>
         </div>
     )
+}
+
+CreateGameForm.propTypes = {
+    formIsOpened: PropTypes.bool.isRequired,
+    setFormIsOpened: PropTypes.func.isRequired
 }
 
 export default CreateGameForm

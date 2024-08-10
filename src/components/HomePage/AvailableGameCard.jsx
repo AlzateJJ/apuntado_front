@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
 import './styles/AvailableGameCard.css'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { updateUserThunk } from '../../store/states/users.slice'
 import { useDispatch, useSelector } from 'react-redux'
+import PropTypes from 'prop-types'
 
 const AvailableGameCard = ( { game } ) => {
   // console.log('entré a AbailableGameCard')
@@ -34,6 +34,20 @@ const AvailableGameCard = ( { game } ) => {
   </article>
 
   )
+}
+
+AvailableGameCard.propTypes = {
+  game: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    users: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired
+      })
+    ),
+    max_players: PropTypes.number.isRequired,
+  }).isRequired
 }
 
 export default AvailableGameCard

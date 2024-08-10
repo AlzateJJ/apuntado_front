@@ -1,8 +1,7 @@
 import './styles/LoginPage.css'
-import { Form, useForm } from 'react-hook-form'
-import { useDispatch, useSelector } from 'react-redux'
+import { useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { loginUserThunk } from '../store/states/users.slice'
 import { genericRequestThunk } from '../store/states/app.slice'
 import axios from 'axios'
 

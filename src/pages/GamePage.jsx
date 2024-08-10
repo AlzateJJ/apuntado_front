@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import BtnsSection from '../components/GamePage/BtnsSection'
 import CardsSection from '../components/GamePage/CardsSection'
@@ -29,7 +29,7 @@ const GamePage = () => {
         }, 3000);
         
         return () => clearInterval(intervalId); // Limpia el intervalo cuando el componente se desmonta
-    }, []); // Solo se ejecuta una vez al montar, pero mantiene el intervalo
+    }); // Solo se ejecuta una vez al montar, pero mantiene el intervalo
     
     const game = games?.find(g => g.id == user?.gameId) // se encuentra el juego
     // console.log(game?.users?.find(u.id === ))

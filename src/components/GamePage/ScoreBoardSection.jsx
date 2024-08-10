@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import './styles/ScoreBoardSection.css'
+import PropTypes from 'prop-types'
 
 const ScoreBoardSection = ( { openScoreBoard, setopenScoreBoard } ) => {
     const games = useSelector(store => store.games)
@@ -35,7 +35,6 @@ const ScoreBoardSection = ( { openScoreBoard, setopenScoreBoard } ) => {
                         )
                     }
                 </div>
-                {/* <div className='scoreBoard_close-btn' onClick={handleOpenScoreboard}>➡️</div> */}
                 <svg xmlns="http://www.w3.org/2000/svg" onClick={handleOpenScoreboard} fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="size-1 scoreBoard_close-btn">
                     <path strokeLinecap="round" strokeLinejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
                 </svg>
@@ -44,6 +43,11 @@ const ScoreBoardSection = ( { openScoreBoard, setopenScoreBoard } ) => {
             </section>
         </div>
     )
+}
+
+ScoreBoardSection.propTypes = {
+    openScoreBoard: PropTypes.bool.isRequired,
+    setopenScoreBoard: PropTypes.func.isRequired
 }
 
 export default ScoreBoardSection

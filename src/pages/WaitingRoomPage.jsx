@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { deleteGameThunk, getGamesThunk, serveCardsThunk, updateGameThunk } from '../store/states/games.slice'
@@ -29,7 +29,7 @@ const WaitingRoomPage = () => {
         
         // Limpia el intervalo cuando el componente se desmonte
         return () => clearInterval(intervalId);
-    }, [])
+    })
     
 
     const handleJoinGame = e => {
@@ -84,10 +84,14 @@ const WaitingRoomPage = () => {
                             :   (
                                     game?.users
                                     ?
-                                        <h3 className='admin_user-name'>{`Esperando que  
-                                            ${(game?.users.find(p => p.id === game?.adminUserID)).firstName} 
-                                            ${(game?.users.find(p => p.id === game?.adminUserID)).lastName}
-                                        inicie el juego`}</h3>
+                                        <h3 className='admin_user-name'>
+                                            {
+                                                `Esperando que 
+                                                    ${((game?.users.find(p => p.id === game?.adminUserID))?.firstName)}
+                                                    ${((game?.users.find(p => p.id === game?.adminUserID))?.lastName)}
+                                                inicie el juego`
+                                            }
+                                        </h3>
                                         :
                                             <h3>Esperando que el administrador inicie el juego</h3>
                                 )

@@ -1,14 +1,13 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { getLoggedUserThunk } from '../../store/states/users.slice'
+import { useSelector } from 'react-redux'
 import Card from './Card'
 import './styles/CardsSection.css'
+import PropTypes from 'prop-types';
 
 const CardsSection = ({ selectCard, selectedCard, cardsOrder, setCardsOrder }) => {
     const user = useSelector(store => store.user);
     const games = useSelector(store => store.games)
     const game = games?.find(g => g.id == user?.gameId) // se encuentra el juego
-
+    console.log(game)
     // console.log(user)
     // console.log(cardsOrder)
 
@@ -39,8 +38,10 @@ const CardsSection = ({ selectCard, selectedCard, cardsOrder, setCardsOrder }) =
     // }
 
     const handleDeleteCardsOrder = () => {
-        const existingCards = (user?.cards?.map(card => 
-            (cardsOrder.find(indexOrder => indexOrder == card.id)))).filter(c => c != undefined)
+        const existingCards = (
+            user?.cards?.map(
+                card => (cardsOrder.find(indexOrder => indexOrder == card.id)))
+            )?.filter(c => c != undefined)
             // console.log(existingCards.length)
             // console.log(existingCards)
             // console.log(cardsOrder)
@@ -83,6 +84,13 @@ const CardsSection = ({ selectCard, selectedCard, cardsOrder, setCardsOrder }) =
             
         </section>
     );
+}
+
+CardsSection.propTypes = {
+    selectCard: PropTypes.func.isRequired,
+    selectedCard: PropTypes.object,
+    cardsOrder: PropTypes.arrayOf(PropTypes.object).isRequired,
+    setCardsOrder: PropTypes.func.isRequired
 }
 
 export default CardsSection;

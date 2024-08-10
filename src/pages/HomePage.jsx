@@ -1,8 +1,6 @@
 import './styles/HomePage.css'
 import AvailableGames from '../components/HomePage/AvailableGames'
-import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
-import { getLoggedUserThunk } from '../store/states/users.slice'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import 'boxicons/css/boxicons.min.css';
 
@@ -33,7 +31,7 @@ const HomePage = () => {
             </section>
             <div className='tokens_div'>
                 <a href="https://wa.me/qr/KRZZTMMKXWZTN1" className="tokens_button" target='blank'>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="whatsapp-icon" width="20" height="20" />
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" className="whatsapp-icon" width="20" height="20" />
                     Comprar Tokens
                 </a>
             </div>
