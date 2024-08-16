@@ -16,10 +16,10 @@ const GamePage = () => {
     const games = useSelector(store => store.games)
     const user = useSelector(store => store.user)
     // console.log(games)
-    const [ selectedCard, setSelectedCard ] = useState('')
-    const [ openScoreBoard, setopenScoreBoard ] = useState(false)
-    const [ cardsOrder, setCardsOrder] = useState([])
-    const [ winner, setWinner ] = useState(false)
+    const [selectedCard, setSelectedCard] = useState('')
+    const [openScoreBoard, setopenScoreBoard] = useState(false)
+    const [cardsOrder, setCardsOrder] = useState([])
+    const [winner, setWinner] = useState(false)
 
     // console.log(user)
     useEffect(() => {
@@ -28,10 +28,10 @@ const GamePage = () => {
             dispatch(getGamesThunk()); // PENDIENTE: por qué es necesario hacer el get?
             dispatch(getCardsThunk(user?.gameId))
         }, 5000);
-        
+
         return () => clearInterval(intervalId); // Limpia el intervalo cuando el componente se desmonta
     }); // Solo se ejecuta una vez al montar, pero mantiene el intervalo
-    
+
     const game = games?.find(g => g.id == user?.gameId) // se encuentra el juego
     // console.log(game?.users?.find(u.id === ))
 
@@ -42,83 +42,90 @@ const GamePage = () => {
 
     const handleAbandonGame = (e) => {
         e.preventDefault()
-        
-        dispatch(updateUserThunk({gameId: null}, user.id))
+
+        dispatch(updateUserThunk({ gameId: null }, user.id))
         navigate('/home')
     }
 
+    // sacar a un jugador del juego si llega a 101 puntos
     if (user?.points >= 101) {
-        dispatch(updateUserThunk({gameId: null, points: 0}, user.id))
+        dispatch(updateUserThunk({ gameId: null, points: 0 }, user.id))
         navigate('/home')
     }
 
+    // si el juego queda sin jugadores, se cierra y se anuncia al ganador
+    if (game?.users?.length === 1) {
+        setWinner(true)
+    }
+
+    // modal de ganador
     const WinnerModal = () => {
         setWinner(false)
-        dispatch(updateUserThunk({gameId: null, points: 0}, user.id))
+        dispatch(updateUserThunk({ gameId: null, points: 0 }, user.id))
         navigate('/home')
     }
 
     return (
-        <>  
-            {/* <div className={`${winner && "modal-overlay"}`}>
+        <>
+            <div className={`${winner && "modal-overlay"}`}>
                 <div className="modal-content">
                     <h2>¡Felicidades!</h2>
-                    <p>Has alcanzado 10 puntos y ganado el juego.</p>
+                    <p>Has ganado el juego.</p>
                     <p>Los tokens de la partida se han abonado a tu cuenta.</p>
                     <button onClick={WinnerModal}>Volver al menú principal</button>
                 </div>
-            </div> */}
+            </div> */
 
             <div className='gamePage_header'>
                 {
                     game?.turnplayerID === user?.id
-                    ?
+                        ?
                         <>
                             <h3 className='gamePage_title'>{`${user?.firstName} ${user?.lastName}, es tu turno!`}</h3>
                         </>
-                    :
-                    (
-                        <>
-                            {
-                                game?.users?.length > 0
-                                ?
-                                    <h3 className='gamePage_title'>{`Todavía no es tu turno, está jugando 
+                        :
+                        (
+                            <>
+                                {
+                                    game?.users?.length > 0
+                                        ?
+                                        <h3 className='gamePage_title'>{`Todavía no es tu turno, está jugando 
                                         ${(game?.users?.find(p => p.id === game?.turnplayerID))?.firstName} 
                                         ${(game?.users?.find(p => p.id === game?.turnplayerID))?.lastName}`}
-                                    </h3>
-                                :
-                                    <h3 className='gamePage_title'>Todavía no es tu turno</h3>
-                            }
-                            <button className='abandon_game-btn' onClick={handleAbandonGame}>Abandonar Juego</button>
-                        </>
-                    )
+                                        </h3>
+                                        :
+                                        <h3 className='gamePage_title'>Todavía no es tu turno</h3>
+                                }
+                                <button className='abandon_game-btn' onClick={handleAbandonGame}>Abandonar Juego</button>
+                            </>
+                        )
                 }
             </div>
             <div className='gamePage_info'>
                 {
-                    !openScoreBoard 
-                    ?
+                    !openScoreBoard
+                        ?
                         <button className='handleScoreBoard_btn' onClick={handleScoreBoard}>Ver tabla de puntajes</button>
-                    :
+                        :
                         null
                 }
 
-                < BtnsSection 
-                    selectedCard = {selectedCard}
-                    selectCard = {setSelectedCard}
-                    setCardsOrder = {setCardsOrder}
-                    cardsOrder = {cardsOrder}
+                < BtnsSection
+                    selectedCard={selectedCard}
+                    selectCard={setSelectedCard}
+                    setCardsOrder={setCardsOrder}
+                    cardsOrder={cardsOrder}
                 />
-                
+
                 <CardsSection
-                    selectCard = {setSelectedCard}
-                    selectedCard = {selectedCard}
-                    setCardsOrder = {setCardsOrder}
-                    cardsOrder = {cardsOrder}
+                    selectCard={setSelectedCard}
+                    selectedCard={selectedCard}
+                    setCardsOrder={setCardsOrder}
+                    cardsOrder={cardsOrder}
                 />
-                <ScoreBoardSection 
-                    openScoreBoard = {openScoreBoard}
-                    setopenScoreBoard = {setopenScoreBoard}
+                <ScoreBoardSection
+                    openScoreBoard={openScoreBoard}
+                    setopenScoreBoard={setopenScoreBoard}
                 />
             </div>
         </>
