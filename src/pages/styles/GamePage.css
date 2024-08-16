@@ -1,3 +1,54 @@
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 50;
+  
+    .modal-content {
+      background-color: #1f1f1f;
+      color: #ffffff;
+      border-radius: 8px;
+      padding: 24px;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  
+      h2 {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 16px;
+      }
+  
+      p {
+        font-size: 16px;
+        margin-bottom: 16px;
+      }
+  
+      button {
+        width: 100%;
+        background-color: #333333;
+        color: #ffffff;
+        padding: 12px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+  
+        &:hover {
+          background-color: #4d4d4d;
+        }
+  
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+  
+
 .gamePage_header {
     height: 10vh;
     width: 100%;

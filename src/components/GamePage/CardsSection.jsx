@@ -5,9 +5,11 @@ import PropTypes from 'prop-types';
 
 const CardsSection = ({ selectCard, selectedCard, cardsOrder, setCardsOrder }) => {
     const user = useSelector(store => store.user);
-    const games = useSelector(store => store.games)
-    const game = games?.find(g => g.id == user?.gameId) // se encuentra el juego
-    console.log(game)
+    
+    // const games = useSelector(store => store.games)
+    // const game = games?.find(g => g.id == user?.gameId) // se encuentra el juego
+    // console.log(game)
+
     // console.log(user)
     // console.log(cardsOrder)
 
@@ -88,7 +90,7 @@ const CardsSection = ({ selectCard, selectedCard, cardsOrder, setCardsOrder }) =
 
 CardsSection.propTypes = {
     selectCard: PropTypes.func.isRequired,
-    selectedCard: PropTypes.object,
+    selectedCard: PropTypes.string.isRequired,
     cardsOrder: PropTypes.arrayOf(PropTypes.object).isRequired,
     setCardsOrder: PropTypes.func.isRequired
 }

@@ -15,9 +15,12 @@ const ScoreBoardSection = ( { openScoreBoard, setopenScoreBoard } ) => {
 
     return (
         <div className={`scoreBoard ${!openScoreBoard && 'close_scoreBoard'}`}>
-            <header className='scoreBoard-header'>
-                <h2 className='scoreBoard-title'>{`Tabla de puntajes, ronda ${game?.rounds?.length} en curso`}</h2>
-            </header>
+            {
+                game?.rounds?.length &&
+                    <header className='scoreBoard-header'>
+                        <h2 className='scoreBoard-title'>{`Tabla de puntajes, ronda ${game?.rounds?.length} en curso`}</h2>
+                    </header>
+            }
             <section className='scoreBoard-body'>
                 <div className='players_wrapper'>
                     {

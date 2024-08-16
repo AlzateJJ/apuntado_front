@@ -19,14 +19,15 @@ const GamePage = () => {
     const [ selectedCard, setSelectedCard ] = useState('')
     const [ openScoreBoard, setopenScoreBoard ] = useState(false)
     const [ cardsOrder, setCardsOrder] = useState([])
+    const [ winner, setWinner ] = useState(false)
 
-    console.log(user)
+    // console.log(user)
     useEffect(() => {
         const intervalId = setInterval(() => {
             dispatch(getLoggedUserThunk());
             dispatch(getGamesThunk()); // PENDIENTE: por qué es necesario hacer el get?
             dispatch(getCardsThunk(user?.gameId))
-        }, 3000);
+        }, 5000);
         
         return () => clearInterval(intervalId); // Limpia el intervalo cuando el componente se desmonta
     }); // Solo se ejecuta una vez al montar, pero mantiene el intervalo
@@ -46,8 +47,28 @@ const GamePage = () => {
         navigate('/home')
     }
 
+    if (user?.points >= 101) {
+        dispatch(updateUserThunk({gameId: null, points: 0}, user.id))
+        navigate('/home')
+    }
+
+    const WinnerModal = () => {
+        setWinner(false)
+        dispatch(updateUserThunk({gameId: null, points: 0}, user.id))
+        navigate('/home')
+    }
+
     return (
-        <>
+        <>  
+            {/* <div className={`${winner && "modal-overlay"}`}>
+                <div className="modal-content">
+                    <h2>¡Felicidades!</h2>
+                    <p>Has alcanzado 10 puntos y ganado el juego.</p>
+                    <p>Los tokens de la partida se han abonado a tu cuenta.</p>
+                    <button onClick={WinnerModal}>Volver al menú principal</button>
+                </div>
+            </div> */}
+
             <div className='gamePage_header'>
                 {
                     game?.turnplayerID === user?.id

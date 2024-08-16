@@ -21,7 +21,7 @@ const AvailableGames = () => {
         // Establece un intervalo que despache la acción cada 3 segundos
         const intervalId = setInterval(() => {
             dispatch(getGamesThunk());
-        }, 3000); // PENDIENTE: volver a poner en 3 segundos: 3000
+        }, 5000); // PENDIENTE: volver a poner en 3 segundos: 3000
 
         // Limpia el intervalo cuando el componente se desmonte
         return () => clearInterval(intervalId);
@@ -42,7 +42,7 @@ const AvailableGames = () => {
     return (
         <section className='availableGames'>
             <div className="title_btn-wrapper">
-                <h2 className='games_title'>{(games?.filter(g => g.started === false)).length > 0 ? 'Juegos a los que te puedes unir' : 'No hay juegos disponibles todavía, crea uno!'}</h2>
+                <h2 className='games_title'>{(games?.filter(g => g.started === false))?.length > 0 ? 'Juegos a los que te puedes unir' : 'No hay juegos disponibles todavía, crea uno!'}</h2>
                 <button onClick={openForm} className="create_game-btn">
                     <p>Crear Juego</p>
                 </button>

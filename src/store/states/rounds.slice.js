@@ -31,6 +31,7 @@ export const createRoundThunk = (newRound) => async (dispatch) => {
     const url = 'http://localhost:8080'
     try {
         const roundRes = await axios.post(`${url}/rounds`, newRound);
+        console.log(roundRes.data)
         // const usersRes = await axios.post(`${url}/games/${gameRes.data.id}/users`, adminUser)
         // dispatch(addGame({ ...gameRes.data, users: usersRes.data }));
         dispatch(addRound(roundRes.data));

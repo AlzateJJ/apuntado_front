@@ -32,7 +32,7 @@ export const getGamesThunk = () => async (dispatch) => {
         .catch(err => console.log(err))
 }
 
-export const getOneGameThunk = (gameId) => async (dispatch) => {
+export const getOneGameThunk = (gameId) => async () => {
     const url = 'http://localhost:8080'
     await axios.get(`${url}/games/${gameId}`)
         .then(res => {
@@ -66,7 +66,7 @@ export const updateGameThunk = (data, id) => async (dispatch) => {
 export const deleteGameThunk = id => async (dispatch) => {
     const url = 'http://localhost:8080'
     await axios.delete(`${url}/games/${id}`, getConfigToken())
-        .then(res => {
+        .then( () => {
             dispatch(deleteGame(id))
         })
         .catch(err => console.log(err))

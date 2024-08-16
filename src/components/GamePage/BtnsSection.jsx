@@ -6,6 +6,7 @@ import { serveCardsThunk, updateGameThunk } from '../../store/states/games.slice
 import { updateCardThunk } from '../../store/states/cards.slice'
 import { createRoundThunk, updateRoundThunk } from '../../store/states/rounds.slice'
 import PropTypes from 'prop-types';
+import axios from 'axios'
 
 
 const BtnsSection = ( { selectedCard, selectCard, setCardsOrder, cardsOrder } ) => {
@@ -26,11 +27,15 @@ const BtnsSection = ( { selectedCard, selectCard, setCardsOrder, cardsOrder } ) 
     const handleBajarse = async (e) => {
         e.preventDefault()
         // 1. verificar que el jugador pueda bajarse (PENDIENTE)
-        // const verifyWin = await axios.post('http://localhost:8080/win/games', getConfigToken())
-        //     .then(res => {console.log(res)})
-        //     .catch(err => console.log(err))
-        // if (verifyWin.status == 400) return console.log(verifyWin)
+        let datosBajarse
+        const verifyWin = await axios.post(`http://localhost:8080/win/games/${game?.id}`)
+            .then(res => datosBajarse = res)
+            .catch(err => console.log(err))
 
+        console.log(datosBajarse)
+        if (datosBajarse?.status !== 200 ) return console.log(verifyWin)
+        
+        console.log("pasé a lógica de bajarse")
         // 2. terminar el round
         const findLastRound = (game) => {
             //  la función reduce en JavaScript es un método de los arrays que se utiliza para iterar 
@@ -46,7 +51,7 @@ const BtnsSection = ( { selectedCard, selectCard, setCardsOrder, cardsOrder } ) 
         const lastRound = findLastRound(game)
         console.log(lastRound)
         dispatch(updateRoundThunk({ ...lastRound, finished: true, winner_id: user.id}, lastRound.id))
-        // 3. actualizar los puntos de todos los jugadores (PENDIENTE)
+        // 3. actualizar los puntos de todos los jugadores (se hace en el 1)
         // 4. sacar jugadores si es necesario, declarar ganador si es necesario (PENDIENTE)
         // 5. empezar una nueva ronda con los jugadores restantes
         dispatch(createRoundThunk({ gameId: lastRound.gameId }))
@@ -54,7 +59,8 @@ const BtnsSection = ( { selectedCard, selectCard, setCardsOrder, cardsOrder } ) 
         dispatch(serveCardsThunk(game.id, user.id))
         // 7. actualizar estados locales
         setCardsOrder([])
-        setCartaEscogida(true)
+        selectCard(false)
+        setCartaEscogida(false)
     }
 
     const handleArrastrar = (e) => {
@@ -177,10 +183,15 @@ const BtnsSection = ( { selectedCard, selectCard, setCardsOrder, cardsOrder } ) 
                             user?.cards?.length === 10
                                 ?
                                     <>
-                                    <article className='end_game-btns'>
-                                        <button className="end_game_btn tocar_btn" onClick={handleTocar}>Tocar</button>
-                                        <button className="end_game_btn bajarse_btn" onClick={handleBajarse}>Bajarse</button>
-                                    </article>
+                                    {
+                                        game?.discarded_card.card && !cartaEscogida
+                                        ?
+                                            <article className='end_game-btns'>
+                                                <button className="end_game_btn tocar_btn" onClick={handleTocar}>Tocar</button>
+                                                <button className="end_game_btn bajarse_btn" onClick={handleBajarse}>Bajarse</button>
+                                            </article>
+                                        : null
+                                    }
                                     <article className='card_btns'>
                                         {
                                             game?.discarded_card.card && !cartaEscogida
