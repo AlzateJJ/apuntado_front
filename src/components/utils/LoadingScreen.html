@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        *, *::before, *::after {
+            margin:0;
+            padding:0;
+            box-sizing: border-box;
+
+            overflow: hidden;
+        }
+
+        body {
+            background:   linear-gradient(200deg, rgba(77, 17, 102, 1), rgba(53, 57, 146, 1)),
+                                linear-gradient(200deg, rgba(53, 57, 146, 1), rgba(53, 57, 146, 0.05));
+
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        #container1 {
+            width: 25vw;
+            height: 95vh;
+            margin-left: 3%;
+            margin-bottom: 5%;
+
+            display: flex;
+            flex-direction: column-reverse;
+            justify-content: flex-start;
+            align-items: center;
+
+            text-align: left;
+            font-size: 3rem;
+            color: #fff;
+        }
+            #loadContainer {
+                width: 100%;
+                height: auto;
+                
+            }
+    </style>
+    <title>Espere un momento...</title>
+</head>
+<body>
+    <aside id="container1"><div id="loadContainer"><h2 id="loading">Cargando</h2></div></aside>
+</body>
+<script>
+    var masterIterations = 0;
+    var masterInterval = setInterval(dotting(), 2500)
+
+    function dotting() {
+        const interval = setInterval(dots, 500);
+        const intervalTwo = setInterval(resetDots, 2000);
+        if (masterIterations > 10) {clearInterval(masterInterval); alert("error 2021: service timeout")}
+    }
+        let iterations = 0;
+        
+        function dots() {
+            iterations++;
+            const text = document.getElementById("loading");
+            if (!text.innerText.includes("...")){text.innerText = text.innerText + ".";};
+            if (iterations > 2) {clearInterval(interval); iterationsTwo = 0;};
+            
+        }
+        let iterationsTwo = 0;
+
+        function resetDots() {
+            const text = document.getElementById("loading");
+            text.innerText = "Cargando";
+            if (iterationsTwo > 0) {clearInterval(intervalTwo); iterations = 0;};
+            
+        }
+</script>
+</html>
